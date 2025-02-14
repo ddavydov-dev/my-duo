@@ -14,7 +14,7 @@ Your first lesson you can add by going to Constructor page. Everything you need 
 
     4. Click the button Save (if it's not clickable, then you didn't feel all the fields)
 
-## Tech Stack
+## Tech Stack (TO BE)
 
 ### Frontend
 
