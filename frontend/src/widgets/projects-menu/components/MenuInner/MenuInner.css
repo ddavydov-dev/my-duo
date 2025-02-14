@@ -1,0 +1,21 @@
+.MenuInner {
+  width: 100%;
+  max-width: 1328px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  height: 68px;
+}
+
+@media (max-width: 920px) {
+  .MenuInner {
+    padding: 0 16px;
+  }
+}
+
+@media (max-width: 540px) {
+  .MenuInner {
+    padding: 0;
+  }
+}
