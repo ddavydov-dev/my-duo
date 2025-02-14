@@ -1,0 +1,16 @@
+.Container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: var(--viewport-height);
+  align-self: stretch;
+  width: 100%;
+  padding: var(--modal-padding, 0);
+  position: relative;
+}
+
+.SignUp {
+  position: absolute;
+  right: 30px;
+  top: 30px;
+}

@@ -475,6 +475,7 @@ progress {
 
 /* HIDING SCROLLBAR FOR PRACTICE BODY */
 /* Hide scrollbar for Chrome, Safari and Opera */
+/* TODO */
 .css-113xa9r-Body::-webkit-scrollbar {
   display: none;
 }
