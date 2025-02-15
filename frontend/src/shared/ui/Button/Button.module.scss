@@ -1,0 +1,110 @@
+.Button {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  cursor: pointer;
+  display: inline-flex;
+  position: relative;
+  touch-action: manipulation;
+  transform: translateZ(0);
+
+  -webkit-font-smoothing: antialiased;
+  align-items: center;
+  box-sizing: border-box;
+  font: 700 15px / normal din-round, sans-serif;
+  justify-content: center;
+  letter-spacing: 0.8px;
+  text-decoration: none;
+  text-transform: uppercase;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  white-space: nowrap;
+
+  background: none;
+  border: solid transparent;
+  border-radius: 12px;
+  border-width: 2px 2px 4px;
+  height: 48px;
+  padding: 0 16px;
+  outline: none;
+  transition: filter 0.2s;
+
+  &::before {
+    bottom: -2px;
+    content: '';
+    left: -2px;
+    position: absolute;
+    right: -2px;
+    top: -2px;
+    // transition: box-shadow var(--web-ui_button-transition-lip);
+    z-index: -1;
+  }
+
+  &.isLoading {
+    position: relative;
+
+    .Text.Children {
+      color: transparent;
+    }
+  }
+
+  &:hover:not(.isLoading) {
+    filter: brightness(0.9);
+  }
+
+  // TODO: deal with the second "not"
+  &:hover:not(.isLoading):not(.Button--primary-ghost) {
+    filter: brightness(1.1);
+  }
+
+  &--primary-filled {
+    color: #fff;
+
+    &::before {
+      background-color: rgb(28, 176, 246);
+      color: rgb(24, 153, 214);
+      box-shadow: 0 4px 0;
+      border-radius: 16px;
+    }
+  }
+
+  &--primary-ghost {
+    color: rgb(var(--color-macaw));
+
+    &::before {
+      background-color: #fff;
+      border: 2px solid #e5e5e5;
+      border-radius: 12px;
+      box-shadow: 0 2px 0;
+      color: #e5e5e5;
+    }
+  }
+
+  &:active:not(.isLoading):before {
+    box-shadow: none;
+    transform: translateY(4px) translateZ(0);
+  }
+
+  &:active:not(.Button--primary-filled):before {
+    transform: translateY(2px) translateZ(0);
+  }
+
+  &:active .Children {
+    transform: translateY(2px) translateZ(0);
+  }
+}
+
+.Children {
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  -webkit-user-select: inherit;
+  -moz-user-select: inherit;
+  user-select: inherit;
+}
+
+.isLoading {
+  .Children {
+    color: transparent;
+  }
+}

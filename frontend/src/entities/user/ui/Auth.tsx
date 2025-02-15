@@ -1,86 +1,84 @@
+import { Button } from '@/shared/ui/Button'
 import styles from './Auth.module.scss'
-import { Button } from '@/shared/ui/ui/button'
+import { useCallback, useState } from 'react'
+import { Login } from './Login'
+import { SignUp } from './SignUp'
+import { supabase } from '@/supabase'
+import { Flex } from '@/shared/ui/Flex'
+import { ForgotPassword } from './ForgotPassword'
+
+type ScreenType = 'login' | 'signUp' | 'forgotPassword'
+
+// const screens = {
+//   login: Login,
+//   signUp: SignUp,
+//   forgot: ForgotPassword
+// } as const
 
 export const Auth = () => {
-  // const transition = useTransition();
+  const [screen, setScreen] = useState<ScreenType>('login')
 
-  // const [isLogin, setIsLogin] = useState(
-  //   actionData && actionData?.fields?.action === "login"
-  //     ? true
-  //     : !actionData
-  //     ? true
-  //     : false
-  // );
+  const handleToggleScreen = useCallback(
+    () => setScreen(prev => (prev === 'login' ? 'signUp' : 'login')),
+    []
+  )
 
-  // const usernameRef = useRef<HTMLInputElement>(null);
-  // const passwordRef = useRef<HTMLInputElement>(null);
+  // const Element = screens[screen]
 
-  // useEffect(() => {
-  //   if (actionData?.errors?.username) {
-  //     usernameRef.current?.focus();
-  //   }
-  //   if (actionData?.errors?.password) {
-  //     passwordRef.current?.focus();
-  //   }
-  // }, [actionData]);
+  const signInWithGoogle = () => {
+    supabase.auth.signInWithOAuth({
+      provider: 'google'
+    })
+  }
+  const signInWithGithub = () => {
+    supabase.auth.signInWithOAuth({
+      provider: 'github'
+    })
+  }
 
-  // const isLoginning = transition.submission?.formData.get("action") === "login";
-  // const isRegistering =
-  //   transition.submission?.formData.get("action") === "register";
-  // const submitLoginText = isLoginning ? "Signing in..." : "Sign in";
-  // const submitRegisterText = isRegistering ? "Signing up..." : "Sign up";
+  if (screen === 'forgotPassword') return <ForgotPassword onClose={() => setScreen('login')} />
 
   return (
-    <div className="h-[100vh] p-8 flex flex-col items-center justify-center">
+    <div className={styles.Auth}>
       <div className={styles.SignUp}>
-        <Button variant={'primaryOutline'}>Sign up</Button>
-      </div>
-      <form action="/" method="POST" className="relative text-center w-[375px]">
-        <h1 className="mt-3 mb-4" style={{ fontSize: '26px', fontWeight: 700 }}>
-          Log in
-        </h1>
-        <div className="flex flex-col w-full">
-          <input
-            data-test="email-input"
-            autocomplete="email"
-            placeholder="Email or username"
-            className="w-full py-2 px-[14px] mt-4"
-            style={{
-              caretColor: '#1cb0f6',
-              color: '#4b4b4b',
-              fontSize: '1.25rem',
-              border: '2px solid #e5e5e5',
-              background: '#f7f7f7',
-              borderRadius: '12px',
-              overflow: 'hidden'
-            }}
-            id="web-ui16"
-            type="text"
-            value=""
-          />
-          <input
-            data-test="password-input"
-            autocomplete="current-password"
-            placeholder="Password"
-            className="w-full py-2 px-[14px] mt-4"
-            style={{
-              caretColor: '#1cb0f6',
-              color: '#4b4b4b',
-              fontSize: '1.25rem',
-              border: '2px solid #e5e5e5',
-              background: '#f7f7f7',
-              borderRadius: '12px',
-              overflow: 'hidden'
-            }}
-            id="web-ui17"
-            type="password"
-            value=""
-          />
-        </div>
-        <Button variant={'primary'} className="w-full text-white mt-5">
-          LOG IN
+        <Button variant={'primary-ghost'} onClick={handleToggleScreen}>
+          {screen === 'login' ? 'Sign up' : 'Login'}
         </Button>
-      </form>
+      </div>
+
+      <div className={styles.AuthForm}>
+        {/* <Element /> */}
+        {screen === 'login' ? (
+          <Login onForgotPassword={() => setScreen('forgotPassword')} />
+        ) : (
+          <SignUp />
+        )}
+
+        <div className={styles.Or}>
+          <div className={styles.Line} />
+          <div className={styles.Children}>or</div>
+          <div className={styles.Line} />
+        </div>
+
+        <Flex space={3}>
+          <Button
+            variant={'primary-ghost'}
+            icon="google"
+            onClick={signInWithGoogle}
+            style={{ flexGrow: 1, color: 'rgb(66, 133, 244)' }}
+          >
+            Google
+          </Button>
+          <Button
+            variant={'primary-ghost'}
+            icon="github"
+            onClick={signInWithGithub}
+            style={{ flexGrow: 1, color: '#1b1f23' }}
+          >
+            Github
+          </Button>
+        </Flex>
+      </div>
     </div>
   )
 }

@@ -9,7 +9,7 @@ export const useUser = () => {
 
   const handleSignOut = async () => {
     await supabase.auth.signOut()
-    navigate('/')
+    navigate(0)
   }
 
   if (!session) return navigate('/login')
