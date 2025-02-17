@@ -4,13 +4,16 @@ import { FormField } from '@/shared/ui/FormField'
 
 import styles from './Auth.module.scss'
 import { useLogin } from '../model/useLogin'
+import { Text } from '@/shared/ui/Text'
 
 export const Login = ({ onForgotPassword }: { onForgotPassword: VoidFunction }) => {
   const { error, isPending, handleLogin } = useLogin()
 
   return (
     <form action="/" method="POST" className={styles.AuthForm} onSubmit={handleLogin}>
-      <h1 style={{ fontSize: '26px', margin: '10px 0 15px' }}>Log in</h1>
+      <Text as="h1" type="title-1">
+        Log in
+      </Text>
       <Flex flexDirection="column" space={4}>
         <FormField
           data-test="email-input"

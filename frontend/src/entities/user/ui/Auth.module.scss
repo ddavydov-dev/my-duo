@@ -107,3 +107,20 @@
     grid-row: 1;
   }
 }
+
+.ForgotPasswordTitle {
+  color: rgb(var(--color-eel));
+  font-size: 25px;
+  line-height: 1.36;
+  margin: 0 0 8px;
+}
+
+.ForgotSuccess {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 350px;
+  text-align: center;
+  width: 100%;
+}

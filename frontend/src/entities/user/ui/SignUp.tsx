@@ -3,28 +3,17 @@ import { Flex } from '@/shared/ui/Flex'
 import { FormField } from '@/shared/ui/FormField'
 
 import styles from './Auth.module.scss'
-import { signIn } from '../utils/signIn'
-import { FormEvent } from 'react'
-import { signUp } from '../utils/signUp'
+import { Text } from '@/shared/ui/Text'
+import { useSignUp } from '../model/useSignUp'
 
 export const SignUp = () => {
-  const handleSignUp = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
-    // console.log('event: ', e.target.elements)
-
-    const name = e.target.elements['name'].value
-    const email = e.target.elements['email'].value
-    const password = e.target.elements['password'].value
-
-    const res = await signUp(email, password)
-
-    console.log(res)
-  }
+  const { error, isPending, handleSignUp } = useSignUp()
 
   return (
     <form action="/" method="POST" className={styles.AuthForm} onSubmit={handleSignUp}>
-      <h1 style={{ fontSize: '26px', margin: '10px 0 15px' }}>Create your profile</h1>
+      <Text as="h1" type="title-1">
+        Create your profile
+      </Text>
       <Flex flexDirection="column" space={4}>
         <FormField data-test="name-input" placeholder="Name (optional)" name="name" />
         <FormField
@@ -43,7 +32,14 @@ export const SignUp = () => {
           required
         />
       </Flex>
-      <Button type="submit" variant="primary-filled" style={{ width: '100%', marginTop: '24px' }}>
+      {error ? <p className={styles.Error}>{error}</p> : null}
+
+      <Button
+        type="submit"
+        variant="primary-filled"
+        isLoading={isPending}
+        style={{ width: '100%', marginTop: '24px' }}
+      >
         Create account
       </Button>
     </form>

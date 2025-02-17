@@ -33,7 +33,7 @@ export const Button: FC<Props> = ({
       {...props}
     >
       <Flex space={3} alignItems="center">
-        {icon ? <Icon name={icon} /> : null}
+        {icon ? <Icon name={icon} className={styles.Icon} /> : null}
 
         {children ? <span className={styles.Children}>{children}</span> : null}
       </Flex>

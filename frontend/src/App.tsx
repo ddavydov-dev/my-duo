@@ -1,15 +1,14 @@
 import { Route, Routes } from 'react-router-dom'
 import { Home } from './pages/Home'
-import { Sprite } from './shared/ui/Sprite'
+import { ResetPasswordPage } from './pages/ResetPasswordPage'
+import { AuthCallbackPage } from './pages/AuthCallbackPage'
 
 export const App = () => {
   return (
     <Routes>
-      {/* <Route path="/blogs/:id" element={<Blog />} />
-        <Route path="/blogs" element={<Home />} />
-        <Route path="/users/:id" element={<User />} />
-        <Route path="/users" element={<Users />} /> */}
-      <Route path="/" element={<Home />} />
+      <Route path="/" index element={<Home />} />
+      <Route path="/reset-password" element={<ResetPasswordPage />} />
+      <Route path="/auth/callback" element={<AuthCallbackPage />} />
     </Routes>
   )
 }

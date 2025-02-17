@@ -10,6 +10,7 @@ export const Home = () => {
   return (
     <>
       <Menu userData={{ streak: 1, wasToday: true }} languages={[]} onOverlay={() => {}} />
+      <p>User: {JSON.stringify(user)}</p>
       <Button onClick={signOut}>Log out</Button>
       {/* <Main>
       <Outlet />

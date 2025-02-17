@@ -2,7 +2,9 @@
   margin: 0;
 
   &--title-1 {
-    font: 700 2.25rem/4.3125rem var(--font-family-heading);
+    // font: 700 2.25rem/4.3125rem var(--font-family-heading);
+    font-size: 26px;
+    margin: 10px 0 15px;
   }
 
   &--title-2 {

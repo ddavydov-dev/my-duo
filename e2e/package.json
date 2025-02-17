@@ -1,0 +1,16 @@
+{
+  "name": "my-duo-e2e",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "playwright test --project chromium",
+    "test:ui": "npx playwright test --ui",
+    "test:report": "playwright show-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.48.0",
+    "@types/node": "^22.13.4"
+  }
+}

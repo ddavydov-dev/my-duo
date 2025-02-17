@@ -3,37 +3,29 @@ import styles from './Auth.module.scss'
 import { useCallback, useState } from 'react'
 import { Login } from './Login'
 import { SignUp } from './SignUp'
-import { supabase } from '@/supabase'
 import { Flex } from '@/shared/ui/Flex'
 import { ForgotPassword } from './ForgotPassword'
 
 type ScreenType = 'login' | 'signUp' | 'forgotPassword'
 
-// const screens = {
-//   login: Login,
-//   signUp: SignUp,
-//   forgot: ForgotPassword
-// } as const
-
 export const Auth = () => {
   const [screen, setScreen] = useState<ScreenType>('login')
+  const [pending, setPending] = useState<'google' | 'github' | null>()
 
   const handleToggleScreen = useCallback(
     () => setScreen(prev => (prev === 'login' ? 'signUp' : 'login')),
     []
   )
 
-  // const Element = screens[screen]
+  const signInWith = (provider: 'google' | 'github') => {
+    setPending(provider)
+    const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+    const redirectUrl = `${window.location.origin}/auth/callback`
+    const authUrl = `${SUPABASE_URL}/auth/v1/authorize?provider=${provider}&redirect_to=${encodeURIComponent(
+      redirectUrl
+    )}`
 
-  const signInWithGoogle = () => {
-    supabase.auth.signInWithOAuth({
-      provider: 'google'
-    })
-  }
-  const signInWithGithub = () => {
-    supabase.auth.signInWithOAuth({
-      provider: 'github'
-    })
+    window.open(authUrl, '_blank')
   }
 
   if (screen === 'forgotPassword') return <ForgotPassword onClose={() => setScreen('login')} />
@@ -64,16 +56,18 @@ export const Auth = () => {
           <Button
             variant={'primary-ghost'}
             icon="google"
-            onClick={signInWithGoogle}
+            onClick={() => signInWith('google')}
             style={{ flexGrow: 1, color: 'rgb(66, 133, 244)' }}
+            isLoading={pending === 'google'}
           >
             Google
           </Button>
           <Button
             variant={'primary-ghost'}
             icon="github"
-            onClick={signInWithGithub}
+            onClick={() => signInWith('github')}
             style={{ flexGrow: 1, color: '#1b1f23' }}
+            isLoading={pending === 'github'}
           >
             Github
           </Button>
