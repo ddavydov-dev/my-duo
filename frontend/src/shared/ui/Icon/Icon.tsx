@@ -3,7 +3,7 @@ import classNames from 'classnames'
 
 import styles from './Icon.module.scss'
 
-export type IconName = 'github' | 'google' | 'close'
+export type IconName = 'github' | 'google' | 'close' | 'learn' | 'constructor' | 'profile'
 
 // TODO: find a better solution
 const iconViewBoxes: Record<IconName, { width: number; height: number }> = {
@@ -18,6 +18,18 @@ const iconViewBoxes: Record<IconName, { width: number; height: number }> = {
   close: {
     width: 16,
     height: 16
+  },
+  learn: {
+    width: 32,
+    height: 32
+  },
+  constructor: {
+    width: 32,
+    height: 32
+  },
+  profile: {
+    width: 32,
+    height: 32
   }
 }
 

@@ -1,21 +1,28 @@
+import { Login } from '@/entities/user/ui/Login'
 import { Button } from '@/shared/ui/Button'
-import styles from './Auth.module.scss'
-import { useCallback, useState } from 'react'
-import { Login } from './Login'
-import { SignUp } from './SignUp'
 import { Flex } from '@/shared/ui/Flex'
-import { ForgotPassword } from './ForgotPassword'
+import { useState } from 'react'
 
-type ScreenType = 'login' | 'signUp' | 'forgotPassword'
+// type ScreenType = 'login' | 'signUp' | 'forgotPassword'
 
-export const Auth = () => {
-  const [screen, setScreen] = useState<ScreenType>('login')
+import styles from './Login.module.scss'
+import { createFileRoute, useRouter } from '@tanstack/react-router'
+import { Icon } from '@/shared/ui/Icon'
+
+export const Route = createFileRoute('/(auth)/login/')({
+  component: LoginPage
+})
+
+function LoginPage() {
+  // const [screen, setScreen] = useState<ScreenType>('login')
   const [pending, setPending] = useState<'google' | 'github' | null>()
+  const { history } = useRouter()
+  // const
 
-  const handleToggleScreen = useCallback(
-    () => setScreen(prev => (prev === 'login' ? 'signUp' : 'login')),
-    []
-  )
+  // const handleToggleScreen = useCallback(
+  //   () => setScreen(prev => (prev === 'login' ? 'signUp' : 'login')),
+  //   []
+  // )
 
   const signInWith = (provider: 'google' | 'github') => {
     setPending(provider)
@@ -28,25 +35,27 @@ export const Auth = () => {
     window.open(authUrl, '_blank')
   }
 
-  if (screen === 'forgotPassword') return <ForgotPassword onClose={() => setScreen('login')} />
+  // if (screen === 'forgotPassword') return <ForgotPassword onClose={() => setScreen('login')} />
 
   return (
     <div className={styles.Auth}>
-      <div></div>
+      <div className={styles.Close}>
+        <button
+          onClick={() => history.back()}
+          style={{ border: 'none', background: 'transparent' }}
+        >
+          <Icon name="close" />
+        </button>
+      </div>
 
       <div className={styles.SignUp}>
-        <Button variant={'primary-ghost'} onClick={handleToggleScreen}>
-          {screen === 'login' ? 'Sign up' : 'Login'}
+        <Button variant={'primary-ghost'} onClick={() => history.push('/signup')}>
+          Sign up
         </Button>
       </div>
 
       <div className={styles.AuthForm}>
-        {/* <Element /> */}
-        {screen === 'login' ? (
-          <Login onForgotPassword={() => setScreen('forgotPassword')} />
-        ) : (
-          <SignUp />
-        )}
+        <Login />
 
         <div className={styles.Or}>
           <div className={styles.Line} />

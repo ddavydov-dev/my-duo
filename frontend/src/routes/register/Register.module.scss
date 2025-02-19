@@ -1,0 +1,21 @@
+.Container {
+  align-items: center;
+  display: flex;
+  padding: 40px;
+  text-align: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.Register {
+  color: rgb(var(--color-black));
+  margin-top: 50px;
+  max-width: 932px;
+  padding: 0 40px;
+  width: 100vw;
+}
+
+.Title {
+  font-size: 32px;
+  margin-bottom: 40px;
+}

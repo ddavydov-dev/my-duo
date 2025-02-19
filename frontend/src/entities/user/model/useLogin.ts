@@ -1,6 +1,7 @@
 import { FormEvent, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import { signInWithEmail } from '../services/authServices'
+import { useNavigate } from '@tanstack/react-router'
 
 export const useLogin = () => {
   const [error, setError] = useState<string | null>(null)
@@ -24,7 +25,7 @@ export const useLogin = () => {
 
     if (res.error) return setError(res.error.message)
 
-    navigate(0)
+    navigate({ to: '/learn' })
   }
 
   return { error, isPending, handleLogin }

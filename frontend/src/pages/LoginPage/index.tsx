@@ -1,14 +1,15 @@
+import { ForgotPassword } from '@/entities/user/ui/ForgotPassword'
+import { Login } from '@/entities/user/ui/Login'
+import { SignUp } from '@/entities/user/ui/SignUp'
 import { Button } from '@/shared/ui/Button'
-import styles from './Auth.module.scss'
-import { useCallback, useState } from 'react'
-import { Login } from './Login'
-import { SignUp } from './SignUp'
 import { Flex } from '@/shared/ui/Flex'
-import { ForgotPassword } from './ForgotPassword'
+import { useCallback, useState } from 'react'
 
 type ScreenType = 'login' | 'signUp' | 'forgotPassword'
 
-export const Auth = () => {
+import styles from './Login.module.scss'
+
+export const LoginPage = () => {
   const [screen, setScreen] = useState<ScreenType>('login')
   const [pending, setPending] = useState<'google' | 'github' | null>()
 

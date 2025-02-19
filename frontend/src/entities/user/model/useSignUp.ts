@@ -1,6 +1,7 @@
 import { FormEvent, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import { signInWithEmail, signUpWithEmail } from '../services/authServices'
+import { useNavigate } from '@tanstack/react-router'
 
 export const useSignUp = () => {
   const [error, setError] = useState<string | null>(null)
@@ -28,7 +29,7 @@ export const useSignUp = () => {
 
     await signInWithEmail(email, password)
 
-    navigate(0)
+    navigate({ to: '/learn' })
   }
 
   return { error, isPending, handleSignUp }

@@ -1,21 +1,19 @@
+import { Icon } from '@/shared/ui/Icon'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
+
+import styles from './Signup.module.scss'
 import { Button } from '@/shared/ui/Button'
-import styles from './Auth.module.scss'
-import { useCallback, useState } from 'react'
-import { Login } from './Login'
-import { SignUp } from './SignUp'
+import { SignUp } from '@/entities/user/ui/SignUp'
 import { Flex } from '@/shared/ui/Flex'
-import { ForgotPassword } from './ForgotPassword'
+import { useState } from 'react'
 
-type ScreenType = 'login' | 'signUp' | 'forgotPassword'
+export const Route = createFileRoute('/(auth)/signup/')({
+  component: RouteComponent
+})
 
-export const Auth = () => {
-  const [screen, setScreen] = useState<ScreenType>('login')
+function RouteComponent() {
   const [pending, setPending] = useState<'google' | 'github' | null>()
-
-  const handleToggleScreen = useCallback(
-    () => setScreen(prev => (prev === 'login' ? 'signUp' : 'login')),
-    []
-  )
+  //   const { history } = useRouter()
 
   const signInWith = (provider: 'google' | 'github') => {
     setPending(provider)
@@ -28,25 +26,27 @@ export const Auth = () => {
     window.open(authUrl, '_blank')
   }
 
-  if (screen === 'forgotPassword') return <ForgotPassword onClose={() => setScreen('login')} />
+  const navigate = useNavigate()
 
   return (
     <div className={styles.Auth}>
-      <div></div>
+      <div className={styles.Close}>
+        <button
+          onClick={() => history.back()}
+          style={{ border: 'none', background: 'transparent' }}
+        >
+          <Icon name="close" />
+        </button>
+      </div>
 
       <div className={styles.SignUp}>
-        <Button variant={'primary-ghost'} onClick={handleToggleScreen}>
-          {screen === 'login' ? 'Sign up' : 'Login'}
+        <Button variant={'primary-ghost'} onClick={() => navigate({ to: '/login' })}>
+          Login
         </Button>
       </div>
 
       <div className={styles.AuthForm}>
-        {/* <Element /> */}
-        {screen === 'login' ? (
-          <Login onForgotPassword={() => setScreen('forgotPassword')} />
-        ) : (
-          <SignUp />
-        )}
+        <SignUp />
 
         <div className={styles.Or}>
           <div className={styles.Line} />

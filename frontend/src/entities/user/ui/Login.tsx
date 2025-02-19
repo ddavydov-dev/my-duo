@@ -5,9 +5,11 @@ import { FormField } from '@/shared/ui/FormField'
 import styles from './Auth.module.scss'
 import { useLogin } from '../model/useLogin'
 import { Text } from '@/shared/ui/Text'
+import { useNavigate } from '@tanstack/react-router'
 
-export const Login = ({ onForgotPassword }: { onForgotPassword: VoidFunction }) => {
+export const Login = () => {
   const { error, isPending, handleLogin } = useLogin()
+  const navigate = useNavigate()
 
   return (
     <form action="/" method="POST" className={styles.AuthForm} onSubmit={handleLogin}>
@@ -29,7 +31,11 @@ export const Login = ({ onForgotPassword }: { onForgotPassword: VoidFunction }) 
           type="password"
           name="password"
           postfix={
-            <button type="button" className={styles.ForgotPassword} onClick={onForgotPassword}>
+            <button
+              type="button"
+              className={styles.ForgotPassword}
+              onClick={() => navigate({ to: '/forgot-password' })}
+            >
               FORGOT?
             </button>
           }

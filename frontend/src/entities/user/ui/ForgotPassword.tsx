@@ -1,19 +1,21 @@
 import { Button } from '@/shared/ui/Button'
 import styles from './Auth.module.scss'
-import { FC, useState } from 'react'
+import { useState } from 'react'
 import { Icon } from '@/shared/ui/Icon'
 import { FormField } from '@/shared/ui/FormField'
 import { supabase } from '@/supabase'
+import { useRouter } from '@tanstack/react-router'
 
-interface ForgotPasswordProps {
-  onClose: VoidFunction
-}
+// interface ForgotPasswordProps {
+//   onClose: VoidFunction
+// }
 
-export const ForgotPassword: FC<ForgotPasswordProps> = ({ onClose }) => {
+export const ForgotPassword = () => {
   const [email, setEmail] = useState('')
   const [isPending, setPending] = useState(false)
   const [isSent, setSent] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const { history } = useRouter()
   const handleReset = async e => {
     e.preventDefault()
     setPending(true)
@@ -35,7 +37,10 @@ export const ForgotPassword: FC<ForgotPasswordProps> = ({ onClose }) => {
   return (
     <div className={styles.Auth}>
       <div className={styles.Close}>
-        <button onClick={onClose} style={{ border: 'none', background: 'transparent' }}>
+        <button
+          onClick={() => history.back()}
+          style={{ border: 'none', background: 'transparent' }}
+        >
           <Icon name="close" />
         </button>
       </div>

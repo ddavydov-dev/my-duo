@@ -1,14 +1,14 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter as Router } from 'react-router-dom'
 
 import './shared/styles/index.scss'
-import { App } from './App.tsx'
+// import { App } from './App.tsx'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { AuthProvider } from './entities/user'
 import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister'
 import { persistQueryClient } from '@tanstack/react-query-persist-client'
 import { Sprite } from './shared/ui/Sprite.tsx'
+import { createRouter, RouterProvider } from '@tanstack/react-router'
+import { routeTree } from './routeTree.gen.ts'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,16 +22,26 @@ const localStoragePersister = createSyncStoragePersister({
   storage: window.localStorage
 })
 
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router
+  }
+}
+
+const router = createRouter({
+  routeTree,
+  context: { queryClient },
+  defaultPreload: 'intent',
+  defaultPreloadStaleTime: 0,
+  defaultViewTransition: true
+})
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Sprite />
 
     <QueryClientProvider client={queryClient}>
-      <Router>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
-      </Router>
+      <RouterProvider router={router} />
     </QueryClientProvider>
   </StrictMode>
 )

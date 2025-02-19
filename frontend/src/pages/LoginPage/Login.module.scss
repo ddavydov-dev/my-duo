@@ -45,7 +45,6 @@
   position: absolute;
   left: 30px;
   top: 30px;
-  cursor: pointer;
 }
 
 .Error {
@@ -85,9 +84,7 @@
   background: transparent;
   -webkit-font-smoothing: antialiased;
   align-self: center;
-  font:
-    700 15px / 28px din-round,
-    sans-serif;
+  font: 700 15px / 28px din-round, sans-serif;
   letter-spacing: 0.8px;
   margin-left: -2px;
   margin-right: 14px;

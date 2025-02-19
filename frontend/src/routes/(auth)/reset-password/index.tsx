@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, FormEvent } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 // import { useNavigate } from 'react-router-dom'
 import { supabase } from '@/supabase'
 import { Button } from '@/shared/ui/Button'
@@ -6,9 +6,13 @@ import { Flex } from '@/shared/ui/Flex'
 import { FormField } from '@/shared/ui/FormField'
 
 import styles from './Reset.module.scss'
-import { useNavigate } from '@tanstack/react-router'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 
-export const ResetPasswordPage = () => {
+export const Route = createFileRoute('/(auth)/reset-password/')({
+  component: ResetPasswordPage
+})
+
+function ResetPasswordPage() {
   const [validSession, setValidSession] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -46,7 +50,7 @@ export const ResetPasswordPage = () => {
     checkSession()
   }, [])
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
     const password = e.target.elements['new-password'].value

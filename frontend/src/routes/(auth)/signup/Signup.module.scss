@@ -45,7 +45,6 @@
   position: absolute;
   left: 30px;
   top: 30px;
-  cursor: pointer;
 }
 
 .Error {
@@ -126,4 +125,11 @@
   max-width: 350px;
   text-align: center;
   width: 100%;
+}
+
+.Close {
+  position: absolute;
+  left: 30px;
+  top: 30px;
+  cursor: pointer;
 }
