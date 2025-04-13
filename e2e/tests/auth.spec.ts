@@ -10,6 +10,8 @@ test.describe('Authentication E2E Tests', () => {
     // Navigate to the auth page
     await page.goto('http://localhost:5173')
 
+    await page.click('button:has-text("I ALREADY HAVE AN ACCOUNT")')
+
     // Toggle to the sign up screen (assumed via a toggle button)
     await page.click('button:has-text("Sign up")')
 
@@ -33,6 +35,8 @@ test.describe('Authentication E2E Tests', () => {
   test('Login with valid credentials', async ({ page }) => {
     // Navigate to the auth page
     await page.goto('http://localhost:5173')
+
+    await page.click('button:has-text("I ALREADY HAVE AN ACCOUNT")')
 
     // Ensure the login form is visible
     await expect(page.getByPlaceholder('Email or username')).toBeVisible()
