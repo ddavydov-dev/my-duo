@@ -12,6 +12,7 @@ interface Props extends ComponentPropsWithoutRef<'button'> {
   variant?: 'primary-filled' | 'primary-ghost' | 'secondary'
   isLoading?: boolean
   icon?: IconName
+  isFullWidth?: boolean
 }
 
 export const Button: FC<Props> = ({
@@ -21,6 +22,7 @@ export const Button: FC<Props> = ({
   type = 'button',
   children,
   icon,
+  isFullWidth = false,
   ...props
 }) => {
   const styleVariant = styles[`Button--${variant}`]
@@ -28,7 +30,10 @@ export const Button: FC<Props> = ({
   return (
     <button
       type={type}
-      className={classNames(styles.Button, styleVariant, { [styles.isLoading]: isLoading })}
+      className={classNames(styles.Button, styleVariant, {
+        [styles.isLoading]: isLoading,
+        [styles.isFullWidth]: isFullWidth
+      })}
       disabled={disabled || isLoading}
       {...props}
     >

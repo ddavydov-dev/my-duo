@@ -10,7 +10,9 @@
   -webkit-font-smoothing: antialiased;
   align-items: center;
   box-sizing: border-box;
-  font: 700 15px / normal din-round, sans-serif;
+  font:
+    700 15px / normal din-round,
+    sans-serif;
   justify-content: center;
   letter-spacing: 0.8px;
   text-decoration: none;
@@ -45,6 +47,10 @@
     .Text.Children {
       color: transparent;
     }
+  }
+
+  &.isFullWidth {
+    width: 100%;
   }
 
   &:hover:not(.isLoading) {

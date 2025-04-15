@@ -14,38 +14,12 @@ Your first lesson you can add by going to Constructor page. Everything you need 
 
     4. Click the button Save (if it's not clickable, then you didn't feel all the fields)
 
-## Tech Stack
+## How to run locally (installed docker or an alternative is needed)
 
-### Frontend
-
-- TypeScript
-- React
-- React Query
-- Vite
-
-### Backend
-
-- TypeScript
-- Fastify
-
-#### Testing
-
-- Vitest
-- React Testing Library
-- Playwright
-
-### DB
-
-- PostgreSQL (users-projects-lessons)
-- MongoDB (steps)
-
-### Other
-
-- Github Actions
-- Docker
-- Zod (possibly)
-- Sentry
-- (something for logging)
+1. npm ci
+2. supabase start
+3. supabase functions serve
+4. npm run dev
 
 ### New features
 

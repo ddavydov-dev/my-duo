@@ -38,7 +38,8 @@ export const SignUp = () => {
         type="submit"
         variant="primary-filled"
         isLoading={isPending}
-        style={{ width: '100%', marginTop: '24px' }}
+        style={{ marginTop: '24px' }}
+        isFullWidth
       >
         Create account
       </Button>

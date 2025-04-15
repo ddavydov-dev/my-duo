@@ -31,7 +31,7 @@ export const Login = () => {
           type="password"
           name="password"
           postfix={
-            <button
+            <button // TODO: change to Button
               type="button"
               className={styles.ForgotPassword}
               onClick={() => navigate({ to: '/forgot-password' })}
@@ -47,7 +47,8 @@ export const Login = () => {
         type="submit"
         variant="primary-filled"
         isLoading={isPending}
-        style={{ width: '100%', marginTop: '24px' }}
+        isFullWidth
+        style={{ marginTop: '24px' }}
       >
         Log in
       </Button>

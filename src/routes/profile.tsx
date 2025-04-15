@@ -8,14 +8,20 @@ export const Route = createFileRoute('/profile')({
 })
 
 function RouteComponent() {
-  const { handleDelete } = useDeleteAccount()
-
   return (
     <Page>
       Hello "/profile/"!
-      <Button variant="primary-ghost" onClick={handleDelete}>
-        Delete my account
-      </Button>
+      <DeleteAccount />
     </Page>
+  )
+}
+
+function DeleteAccount() {
+  const { handleDelete } = useDeleteAccount()
+
+  return (
+    <Button variant="primary-ghost" onClick={handleDelete}>
+      Delete my account
+    </Button>
   )
 }

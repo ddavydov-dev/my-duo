@@ -21,10 +21,14 @@ export const Welcome = () => {
 
         <Flex flexDirection="column" space={3} className={styles.Buttons}>
           <Link to="/register">
-            <Button variant="secondary">Get started</Button>
+            <Button variant="secondary" isFullWidth>
+              Get started
+            </Button>
           </Link>
           <Link to="/login">
-            <Button variant="primary-ghost">I already have an account</Button>
+            <Button variant="primary-ghost" isFullWidth>
+              I already have an account
+            </Button>
           </Link>
         </Flex>
       </div>

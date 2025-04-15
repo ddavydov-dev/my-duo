@@ -7,14 +7,12 @@ export const BackButton = () => {
   const { history } = useRouter()
 
   return (
-    <div className={styles.BackButton}>
-      <button // TODO: use Button component
-        onClick={() => history.back()}
-        style={{ border: 'none', background: 'transparent' }}
-      >
-        <Icon name="close" />
-      </button>
-    </div>
+    <button // TODO: use Button component
+      onClick={() => history.back()}
+      className={styles.BackButton}
+    >
+      <Icon name="close" />
+    </button>
   )
 }
 

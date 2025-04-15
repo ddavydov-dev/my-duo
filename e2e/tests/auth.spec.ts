@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test'
 
 const testUser = {
-  email: 'testusefk9ejwduhuew@mail.ru',
-  password: 'password123'
+  email: 'qepttt+1@gmail.com',
+  password: '1234567890'
 }
 
 test.describe('Authentication E2E Tests', () => {
@@ -57,6 +57,8 @@ test.describe('Authentication E2E Tests', () => {
     // Navigate to the auth page
     await page.goto('http://localhost:5173')
 
+    await page.click('button:has-text("I ALREADY HAVE AN ACCOUNT")')
+
     // Click the forgot password button/link (using the label text "FORGOT?")
     await page.click('button:has-text("FORGOT?")')
 
@@ -75,6 +77,9 @@ test.describe('Authentication E2E Tests', () => {
 
   test('Forgot Password flow with unused email shows error', async ({ page }) => {
     await page.goto(`http://localhost:5173`)
+
+    await page.click('button:has-text("I ALREADY HAVE AN ACCOUNT")')
+
     await page.click('button:has-text("FORGOT?")')
     await expect(page.locator('text=Forgot password')).toBeVisible()
 
@@ -91,6 +96,8 @@ test.describe('Authentication E2E Tests', () => {
     // Navigate to the auth page
     await page.goto('http://localhost:5173')
 
+    await page.click('button:has-text("I ALREADY HAVE AN ACCOUNT")')
+
     // Log in with valid credentials
     await page.fill('input[name="email"]', testUser.email)
     await page.fill('input[name="password"]', testUser.password)
@@ -102,7 +109,60 @@ test.describe('Authentication E2E Tests', () => {
     // Click the Sign Out button
     await page.click('text=Log out')
 
-    // Verify that the login form is visible again (user is logged out)
-    await expect(page.getByPlaceholder('Email or username')).toBeVisible()
+    await expect(
+      page.locator('text=The free, fun, and effective way to learn everything!')
+    ).toBeVisible()
+  })
+
+  test('Login with invalid credentials shows error', async ({ page }) => {
+    // Navigate to the auth page
+    await page.goto('http://localhost:5173')
+
+    await page.click('button:has-text("I ALREADY HAVE AN ACCOUNT")')
+
+    // Log in with valid credentials
+    await page.fill('input[name="email"]', 'unused@example.com')
+    await page.fill('input[name="password"]', '123456')
+    await page.click('button[type="submit"]')
+
+    // Wait for the Sign Out button to appear (indicating a successful login)
+    await expect(page.locator('text=Invalid login credentials')).toBeVisible()
+  })
+
+  test('Sign up with existing credentials shows error', async ({ page }) => {
+    // Navigate to the auth page
+    await page.goto('http://localhost:5173')
+
+    await page.click('button:has-text("I ALREADY HAVE AN ACCOUNT")')
+
+    await page.click('button:has-text("SIGN UP")')
+
+    // Log in with valid credentials
+    await page.fill('input[name="email"]', testUser.email)
+    await page.fill('input[name="password"]', testUser.password)
+    await page.click('button[type="submit"]')
+
+    // Wait for the Sign Out button to appear (indicating a successful login)
+    await expect(page.locator('text=User already registered')).toBeVisible()
+  })
+
+  test('User can delete account', async ({ page }) => {
+    // Navigate to the auth page
+    await page.goto('http://localhost:5173')
+
+    await page.click('button:has-text("I ALREADY HAVE AN ACCOUNT")')
+
+    // Log in with valid credentials
+    await page.fill('input[name="email"]', testUser.email)
+    await page.fill('input[name="password"]', testUser.password)
+    await page.click('button[type="submit"]')
+
+    await page.click('text=PROFILE')
+
+    await page.click('button:has-text("DELETE MY ACCOUNT")')
+
+    await expect(
+      page.locator('text=The free, fun, and effective way to learn everything!')
+    ).toBeVisible()
   })
 })
