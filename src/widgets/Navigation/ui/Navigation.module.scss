@@ -1,7 +1,6 @@
 .Navigation {
   left: 0;
   position: fixed !important;
-
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   -ms-overflow-style: none;
@@ -21,12 +20,15 @@
   -moz-user-select: none;
   user-select: none;
   width: calc(var(--web-ui_navbar-width-no-labels, 56px) + 32px);
-
   z-index: 210;
 
   @media (min-width: 1160px) {
     & {
       width: calc(var(--web-ui_navbar-width, 224px) + 32px);
+    }
+
+    &--short {
+      width: calc(var(--web-ui_navbar-width-no-labels, 56px) + 32px);
     }
   }
 }
@@ -34,10 +36,10 @@
 .Logo {
   box-sizing: content-box;
   height: 39px;
-  padding: 36px 0 25px 10px;
+  padding: 28px 0 25px 8px;
 
   @media (min-width: 1160px) {
-    & {
+    &:not(.Logo--Navigation--short) {
       height: 30px;
       padding: 32px 0 30px 16px;
     }
@@ -55,7 +57,7 @@
     width: 128px;
 
     @media (min-width: 1160px) {
-      & {
+      &:not(.Logo--full--Navigation--short) {
         display: initial;
       }
     }
@@ -67,7 +69,7 @@
     width: 40px;
 
     @media (min-width: 1160px) {
-      & {
+      &:not(.Logo--short--Navigation--short) {
         display: none;
       }
     }
@@ -83,7 +85,7 @@
   width: var(--web-ui_navbar-width-no-labels, 56px);
 
   @media (min-width: 1160px) {
-    & {
+    &:not(.NavBar--short) {
       width: auto;
     }
   }
@@ -126,7 +128,9 @@
       -webkit-user-select: none;
       -moz-user-select: none;
       user-select: none;
+    }
 
+    &:not(.Item--short) > span {
       @media (min-width: 1160px) {
         & {
           display: initial;

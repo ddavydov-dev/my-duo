@@ -1,4 +1,4 @@
-export interface Step {
+export interface Exercise {
   id: string
   createdAt: string
   updatedAt: string

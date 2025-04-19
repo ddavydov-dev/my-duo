@@ -3,7 +3,14 @@ import classNames from 'classnames'
 
 import styles from './Icon.module.scss'
 
-export type IconName = 'github' | 'google' | 'close' | 'learn' | 'constructor' | 'profile'
+export type IconName =
+  | 'github'
+  | 'google'
+  | 'close'
+  | 'learn'
+  | 'constructor'
+  | 'profile'
+  | 'messageTriangle'
 
 // TODO: find a better solution
 const iconViewBoxes: Record<IconName, { width: number; height: number }> = {
@@ -30,6 +37,10 @@ const iconViewBoxes: Record<IconName, { width: number; height: number }> = {
   profile: {
     width: 32,
     height: 32
+  },
+  messageTriangle: {
+    width: 18,
+    height: 20
   }
 }
 

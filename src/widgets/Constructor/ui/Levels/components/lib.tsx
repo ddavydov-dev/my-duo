@@ -1,39 +1,38 @@
-import styled from "@emotion/styled";
-import { PHONE_MEDIA_MAX, TABLET_MEDIA_MAX } from "~/constants";
-import Sidebar from "./Sidebar";
-import PlusIcon from "~/styles/plus.svg";
+import styled from '@emotion/styled'
+import { PHONE_MEDIA_MAX, TABLET_MEDIA_MAX } from '~/constants'
+import PlusIcon from '~/styles/plus.svg'
 
 type InsertWordsTextBlockProps = {
-  isEditingText?: boolean;
-};
+  isEditingText?: boolean
+}
 
 type VariantItemNumberProps = {
-  isConnected?: boolean;
-  isFocused: boolean;
-};
+  isConnected?: boolean
+  isFocused: boolean
+}
 
 type InsertWordsInputProps = {
-  length: number;
-  isToChoose?: boolean;
-};
+  length: number
+  isToChoose?: boolean
+}
 
 type SidebarBtnProps = {
-  isActive: boolean;
-};
+  isActive: boolean
+}
 
 type StepContainerProps = {
-  isHidden: boolean;
-};
+  isHidden: boolean
+}
 
 type SidebarStepsButtonProps = {
-  isActive: boolean;
-};
+  isActive: boolean
+}
 
 type SidebarStepsListItemProps = {
-  isActive: boolean;
-};
+  isActive: boolean
+}
 
-const ConstructorContainer = styled("section")`
+const ConstructorContainer = styled('section')`
   width: 100%;
   height: calc(100vh - 95px);
 
@@ -41,51 +40,51 @@ const ConstructorContainer = styled("section")`
     height: calc(100vh - 165px);
     overflow-y: scroll;
   }
-`;
+`
 
-const ConstructorInner = styled("div")`
+const ConstructorInner = styled('div')`
   display: flex;
   width: 100%;
   height: 100%;
   justify-content: space-between;
   flex-wrap: wrap;
-`;
+`
 
-const StepContainer = styled("section")<StepContainerProps>`
+const StepContainer = styled('section')<StepContainerProps>`
   min-height: 100%;
-  display: ${(props) => (props.isHidden ? "none" : "flex")};
+  display: ${props => (props.isHidden ? 'none' : 'flex')};
   flex-direction: column;
-`;
+`
 
-const StepContent = styled("div")`
+const StepContent = styled('div')`
   border-top: 1px solid #e5e5e5;
   border-bottom: 1px solid #e5e5e5;
   padding: 60px 24px;
   min-height: 300px;
   margin-top: 20px;
-`;
+`
 
-const StepHeader = styled("div")`
+const StepHeader = styled('div')`
   display: flex;
   justify-content: space-between;
   position: relative;
-`;
+`
 
-const ChooseStyle = styled("div")`
+const ChooseStyle = styled('div')`
   display: grid;
   grid-template-columns: max-content max-content;
   grid-template-rows: max-content max-content;
   justify-content: center;
   align-items: self-end;
   margin: auto 0;
-`;
+`
 
-const StyleButton = styled("button")`
+const StyleButton = styled('button')`
   padding: 35px;
   font-size: 20px;
   border: none;
   cursor: pointer;
-  font-family: "Nunito";
+  font-family: 'Nunito';
   transition: color 0.2s;
   &:hover {
     color: #1cb0f6;
@@ -94,9 +93,9 @@ const StyleButton = styled("button")`
     color: #1cb0f6;
     filter: brightness(1.1);
   }
-`;
+`
 
-const Button = styled("button")`
+const Button = styled('button')`
   border: 0 solid transparent;
   background-color: #1cb0f6;
   color: #fff;
@@ -107,7 +106,7 @@ const Button = styled("button")`
   height: 50px;
   cursor: pointer;
   text-transform: uppercase;
-  font-family: "Nunito";
+  font-family: 'Nunito';
   font-size: 15px;
   font-weight: 800;
   letter-spacing: 0.8px;
@@ -136,32 +135,32 @@ const Button = styled("button")`
       filter: none;
     }
   }
-`;
+`
 
-const InsertWordsTextBlock = styled("div")<InsertWordsTextBlockProps>`
+const InsertWordsTextBlock = styled('div')<InsertWordsTextBlockProps>`
   min-height: 170px;
   flex-grow: 1;
   width: 100%;
   padding: 10px 0;
   background-color: #fff;
   position: relative;
-  z-index: ${(props) => (props.isEditingText ? "0" : "2")};
+  z-index: ${props => (props.isEditingText ? '0' : '2')};
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   box-sizing: border-box;
   font-size: 19px;
-  font-family: "Nunito";
+  font-family: 'Nunito';
   margin-top: 30px;
-`;
+`
 
-const InsertWordsInput = styled("input")<InsertWordsInputProps>`
+const InsertWordsInput = styled('input')<InsertWordsInputProps>`
   border: none;
   font-size: 19px;
   margin: 0 7px;
-  width: ${(props) => props.length * 13 + 5}px;
+  width: ${props => props.length * 13 + 5}px;
   border-bottom: 2px solid #afafaf;
-  cursor: ${(props) => (props.isToChoose ? "pointer" : "text")};
+  cursor: ${props => (props.isToChoose ? 'pointer' : 'text')};
   caret-color: #1caff6;
   padding: 0;
   &:disabled {
@@ -172,28 +171,28 @@ const InsertWordsInput = styled("input")<InsertWordsInputProps>`
     border-bottom-color: #1caff6;
     outline: none;
   }
-`;
+`
 
-const InsertWordsAnswerField = styled("span")<InsertWordsInputProps>`
+const InsertWordsAnswerField = styled('span')<InsertWordsInputProps>`
   margin: 0 7px;
-  width: ${(props) => props.length * 13}px;
+  width: ${props => props.length * 13}px;
   border-bottom: 2px solid #afafaf;
-`;
+`
 
-const VariantsList = styled("ul")`
+const VariantsList = styled('ul')`
   list-style-type: none;
   padding: 0;
   margin: 0;
   background-color: #fff;
-`;
+`
 
-const VariantsItem = styled("li")`
+const VariantsItem = styled('li')`
   position: relative;
   margin-bottom: 8px;
   background-color: white;
-`;
+`
 
-const VariantItemInput = styled("input")`
+const VariantItemInput = styled('input')`
   border: 1px solid #e5e5e5;
   border-radius: 12px;
   border-width: 2px 2px 4px;
@@ -207,23 +206,15 @@ const VariantItemInput = styled("input")`
   line-height: 1.4;
   padding: 12px 16px 12px 56px;
   width: 100%;
-`;
+`
 
-const VariantItemNumber = styled("span")<VariantItemNumberProps>`
+const VariantItemNumber = styled('span')<VariantItemNumberProps>`
   border: 2px solid #e5e5e5;
-  border-color: ${(props) =>
-    props.isConnected
-      ? "#78C83D"
-      : props.isFocused
-      ? "rgb(132, 216, 255)"
-      : "#e5e5e5"};
+  border-color: ${props =>
+    props.isConnected ? '#78C83D' : props.isFocused ? 'rgb(132, 216, 255)' : '#e5e5e5'};
   border-radius: 8px;
-  color: ${(props) =>
-    props.isConnected
-      ? "#78C83D"
-      : props.isFocused
-      ? "rgb(24, 153, 214)"
-      : "#afafaf"};
+  color: ${props =>
+    props.isConnected ? '#78C83D' : props.isFocused ? 'rgb(24, 153, 214)' : '#afafaf'};
   font-size: 15px;
   font-weight: 700;
   height: 30px;
@@ -237,14 +228,14 @@ const VariantItemNumber = styled("span")<VariantItemNumberProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: "Nunito";
+  font-family: 'Nunito';
 
   // @media (max-width: ${TABLET_MEDIA_MAX}px) {
   //   display: none;
   // }
-`;
+`
 
-const SidebarList = styled("ul")`
+const SidebarList = styled('ul')`
   margin-bottom: auto;
 
   @media (max-width: ${PHONE_MEDIA_MAX}px) {
@@ -254,13 +245,13 @@ const SidebarList = styled("ul")`
     width: calc(100% - 110px);
     margin: 0;
   }
-`;
+`
 
-const SidebarListItem = styled("li")`
+const SidebarListItem = styled('li')`
   @media (max-width: ${PHONE_MEDIA_MAX}px) {
     margin-right: 10px;
   }
-`;
+`
 
 const SidebarStepsList = styled(SidebarList)`
   max-height: 40%;
@@ -271,18 +262,18 @@ const SidebarStepsList = styled(SidebarList)`
     order: 1;
     margin-bottom: 15px;
   }
-`;
+`
 
-const SidebarStepsListItem = styled("li")<SidebarStepsListItemProps>`
+const SidebarStepsListItem = styled('li')<SidebarStepsListItemProps>`
   display: flex;
   min-height: 30px;
 
   @media (max-width: ${PHONE_MEDIA_MAX}px) {
-    min-width: ${(props) => (props.isActive ? "115px" : "70px")};
+    min-width: ${props => (props.isActive ? '115px' : '70px')};
   }
-`;
+`
 
-const SidebarBtn = styled("button")<SidebarBtnProps>`
+const SidebarBtn = styled('button')<SidebarBtnProps>`
   color: #3c3c3c;
   display: block;
   font-size: 16px;
@@ -290,7 +281,7 @@ const SidebarBtn = styled("button")<SidebarBtnProps>`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  background: ${(props) => (props.isActive ? "#dadada" : "inherit")};
+  background: ${props => (props.isActive ? '#dadada' : 'inherit')};
   border-radius: 16px;
   width: 100%;
   text-align: left;
@@ -306,13 +297,13 @@ const SidebarBtn = styled("button")<SidebarBtnProps>`
     padding: 5px 8px;
     margin-right: 5px;
   }
-`;
+`
 
-const SidebarStepsButton = styled("button")<SidebarStepsButtonProps>`
-  color: ${(props) => (props.isActive ? "#1cb0f6" : "#3c3c3c")};
-`;
+const SidebarStepsButton = styled('button')<SidebarStepsButtonProps>`
+  color: ${props => (props.isActive ? '#1cb0f6' : '#3c3c3c')};
+`
 
-const StepInner = styled("div")`
+const StepInner = styled('div')`
   padding: 0 20%;
 
   @media (max-width: 820px) {
@@ -326,9 +317,9 @@ const StepInner = styled("div")`
   @media (max-width: ${PHONE_MEDIA_MAX}px) {
     padding: 0;
   }
-`;
+`
 
-const SidebarBtnAdd = styled("button")`
+const SidebarBtnAdd = styled('button')`
   border: 0 solid transparent;
   background-color: #1cb0f6;
 
@@ -340,7 +331,7 @@ const SidebarBtnAdd = styled("button")`
   height: 40px;
   cursor: pointer;
   text-transform: uppercase;
-  font-family: "Nunito";
+  font-family: 'Nunito';
   font-size: 14px;
   font-weight: 800;
   letter-spacing: 0.4px;
@@ -378,7 +369,7 @@ const SidebarBtnAdd = styled("button")`
       height: 26px;
     }
   }
-`;
+`
 
 const SidebarBtnAddWithoutTitle = styled(SidebarBtnAdd)`
   height: 30px;
@@ -390,7 +381,7 @@ const SidebarBtnAddWithoutTitle = styled(SidebarBtnAdd)`
   &:active {
     height: 26px;
   }
-`;
+`
 
 export {
   ConstructorContainer,
@@ -416,5 +407,5 @@ export {
   StepInner,
   SidebarBtnAdd,
   SidebarBtnAddWithoutTitle,
-  SidebarStepsButton,
-};
+  SidebarStepsButton
+}

@@ -1,3 +1,4 @@
+import classnames from 'classnames'
 import logo from './logo.svg'
 import logoFull from './logo-full.svg'
 import styles from './Navigation.module.scss'
@@ -24,19 +25,33 @@ const links = [
   }
 ] as const
 
-export function Navigation() {
+export function Navigation({ isNavClosed = false }: { isNavClosed?: boolean }) {
   const { user } = useUser()
   const { pathname } = useLocation()
 
   return (
-    <div className={styles.Navigation}>
-      <div className={styles.Logo}>
+    <div className={classnames(styles.Navigation, { [styles['Navigation--short']]: isNavClosed })}>
+      <div
+        className={classnames(styles.Logo, {
+          [styles['Logo--Navigation--short']]: isNavClosed
+        })}
+      >
         <Link to="/learn" aria-current="page">
-          <img src={logoFull} className={styles['Logo--full']} />
-          <img src={logo} className={styles['Logo--short']} />
+          <img
+            src={logoFull}
+            className={classnames(styles['Logo--full'], {
+              [styles['Logo--full--Navigation--short']]: isNavClosed
+            })}
+          />
+          <img
+            src={logo}
+            className={classnames(styles['Logo--short'], {
+              [styles['Logo--short--Navigation--short']]: isNavClosed
+            })}
+          />
         </Link>
       </div>
-      <div className={styles.NavBar}>
+      <div className={classnames(styles.NavBar, { [styles['NavBar--short']]: isNavClosed })}>
         {links.map(({ title, icon, href }) => (
           <Link
             to={href === '/profile' && !user ? '/login' : href}
@@ -44,7 +59,10 @@ export function Navigation() {
             key={title}
           >
             <span
-              className={classNames(styles.Item, { [styles['Item--active']]: pathname === href })}
+              className={classNames(styles.Item, {
+                [styles['Item--active']]: pathname === href,
+                [styles['Item--short']]: isNavClosed
+              })}
             >
               <div className={styles.IconWrapper}>
                 <Icon name={icon} />

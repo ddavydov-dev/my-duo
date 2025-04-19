@@ -1,5 +1,5 @@
 import { Lesson } from '../../lesson'
-import { Step } from '../../step'
+import { Step } from '../../exercise'
 
 export interface Project {
   id: string

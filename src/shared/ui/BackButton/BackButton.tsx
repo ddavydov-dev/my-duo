@@ -2,13 +2,26 @@ import { useRouter } from '@tanstack/react-router'
 
 import { Icon } from '../Icon'
 import styles from './BackButton.module.scss'
+import { FC } from 'react'
 
-export const BackButton = () => {
+interface BackButtonProps {
+  onClick?: VoidFunction
+}
+
+export const BackButton: FC<BackButtonProps> = ({ onClick }) => {
   const { history } = useRouter()
+
+  const handleClick = () => {
+    if (onClick) {
+      onClick()
+    } else {
+      history.back()
+    }
+  }
 
   return (
     <button // TODO: use Button component
-      onClick={() => history.back()}
+      onClick={handleClick}
       className={styles.BackButton}
     >
       <Icon name="close" />
