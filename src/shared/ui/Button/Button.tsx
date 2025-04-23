@@ -9,7 +9,7 @@ import { IconName } from '../Icon/Icon'
 
 // TODO: divide variant into variant and kind
 interface Props extends ComponentPropsWithoutRef<'button'> {
-  variant?: 'primary-filled' | 'primary-ghost' | 'secondary'
+  variant?: 'primary-filled' | 'primary-ghost' | 'secondary' | 'ghost'
   isLoading?: boolean
   icon?: IconName
   isFullWidth?: boolean

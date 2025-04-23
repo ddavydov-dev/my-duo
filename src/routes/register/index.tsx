@@ -5,6 +5,7 @@ import styles from './Register.module.scss'
 import { FormField } from '@/shared/ui/FormField'
 import { Button } from '@/shared/ui/Button'
 import { FormEvent } from 'react'
+import { useSkills } from '@/entities/skill'
 
 export const Route = createFileRoute('/register/')({
   component: Register
@@ -12,13 +13,15 @@ export const Route = createFileRoute('/register/')({
 
 function Register() {
   const navigate = useNavigate()
+  // const { mutate } = useCreateProject()
+  const { create } = useSkills()
 
   const handleRegister = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     const projectNameInput = e.currentTarget.elements[0] as HTMLInputElement
 
-    localStorage.setItem('data', JSON.stringify({ projectName: projectNameInput.value }))
+    create({ title: projectNameInput.value, isPublic: false })
 
     navigate({ to: '/learn' })
   }

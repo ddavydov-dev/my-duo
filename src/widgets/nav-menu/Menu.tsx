@@ -1,6 +1,6 @@
 import { PHONE_MEDIA_MAX } from '../../shared/config/consts'
 import useMediaQuery from '../../shared/hooks/useMediaQuery'
-import { Project } from '../../entities/project/config/types'
+import { Project } from '../../entities/skill/config/types'
 import streakActive from '../../shared/assets/icons/streak-active.svg'
 import streak from '../../shared/assets/icons/streak.svg'
 import styles from './nav-menu.module.css'

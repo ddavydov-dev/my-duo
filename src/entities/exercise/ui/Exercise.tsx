@@ -1,5 +1,4 @@
 import { FC, ReactNode } from 'react'
-import { QuestionAnswer } from './QuestionAnswer'
 
 import styles from './Exercise.module.scss'
 
@@ -21,9 +20,7 @@ export const Exercise: FC<ExerciseProps> = ({ title, children }) => {
                 </h1>
               </div>
 
-              <QuestionAnswer />
-
-              {/* {children} */}
+              {children}
             </div>
           </div>
         </div>

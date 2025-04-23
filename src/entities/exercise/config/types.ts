@@ -1,10 +1,9 @@
 export interface Exercise {
   id: string
-  createdAt: string
-  updatedAt: string
-  stepType: string
+  lessonId: string
+  type: 'question_answer' // TODO
+  prompt: string
   answer: string
-  parentLessonId: string
-  languageId?: string
-  options?: string
+  metadata?: unknown
+  order: number
 }

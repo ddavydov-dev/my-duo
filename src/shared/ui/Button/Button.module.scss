@@ -96,6 +96,17 @@
     }
   }
 
+  &--ghost {
+    border: none;
+    color: #4b4b4b;
+    background-color: inherit;
+
+    &:hover {
+      background-color: #e5e5e5;
+      filter: none !important;
+    }
+  }
+
   &:active:not(.isLoading):before {
     box-shadow: none;
     transform: translateY(4px) translateZ(0);

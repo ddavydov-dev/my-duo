@@ -9,11 +9,18 @@ const MAX_WIDTH = 444 // 472
 const MIN_HEIGHT = 56
 const MAX_HEIGHT = 184
 
-export const SmartTextarea: FC<SmartTextareaProps> = ({ placeholder, autoFocus, required }) => {
-  const [value, setValue] = useState('')
+export const SmartTextarea: FC<SmartTextareaProps> = ({
+  placeholder,
+  autoFocus,
+  required,
+  onChange,
+  value: initialValue
+}) => {
+  const [value, setValue] = useState(initialValue)
   const taRef = useRef<HTMLTextAreaElement>(null)
   const ghostRef = useRef<HTMLDivElement>(null)
 
+  // TODO check if it can be transformed into an onChange callback
   useEffect(() => {
     const ta = taRef.current!
     const ghost = ghostRef.current!
@@ -46,7 +53,11 @@ export const SmartTextarea: FC<SmartTextareaProps> = ({ placeholder, autoFocus, 
         //   onChange={changeQuestion}
         value={value}
         // placeholder="Type here..."
-        onChange={e => setValue(e.target.value)}
+        onChange={e => {
+          setValue(e.target.value)
+
+          onChange?.(e)
+        }}
         autoFocus={autoFocus}
         required={required}
       />

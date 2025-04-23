@@ -1,7 +1,7 @@
 import { useScrollRefs } from 'src/shared/hooks/useScrollRefs'
 import { FormButton } from '~/modules/Common/components/FormTags/lib'
 import { useConstructor } from '../../..'
-import { ConstructorSidebar } from '../../lib'
+import { ConstructorSidebar } from '../../legacy/lib'
 import {
   SidebarBtn,
   SidebarBtnAdd,

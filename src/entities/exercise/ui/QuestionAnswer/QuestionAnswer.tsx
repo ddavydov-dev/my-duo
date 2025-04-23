@@ -1,17 +1,25 @@
 import { useRive } from '@rive-app/react-canvas'
 import styles from './QuestionAnswer.module.scss'
-import { FC, useCallback } from 'react'
-import { Button } from '@/shared/ui/Button'
+import { FC } from 'react'
 import { Icon } from '@/shared/ui/Icon'
 import { SmartTextarea } from '@/shared/ui/SmartTextarea'
 import { CHARACTER_HEIGHT, CHARACTER_WIDTH } from '../../config/consts'
 
 interface QuestionAnswerProps {
   question?: string
+  answer?: string
+  onQuestionChange?: (question: string) => void
+  onAnswerChange?: (answer: string) => void
 }
 
-export const QuestionAnswer: FC<QuestionAnswerProps> = ({ question }) => {
-  const { rive, RiveComponent } = useRive({
+export const QuestionAnswer: FC<QuestionAnswerProps> = ({
+  question,
+  onQuestionChange,
+  answer,
+  onAnswerChange
+  // TODO: should be one onChange
+}) => {
+  const { RiveComponent } = useRive({
     src: '/oscar.riv',
     animations: 'idle_00',
     autoplay: true
@@ -43,7 +51,13 @@ export const QuestionAnswer: FC<QuestionAnswerProps> = ({ question }) => {
         />
 
         <div style={{ position: 'relative' }}>
-          <SmartTextarea placeholder="Set question" required autoFocus />
+          <SmartTextarea
+            placeholder="Set question"
+            value={question}
+            onChange={e => onQuestionChange?.(e.target.value)}
+            required
+            autoFocus
+          />
           {/* <div className={styles.WrapperTwo}> */}
           {/* <textarea
             ref={taRef}
@@ -73,7 +87,8 @@ export const QuestionAnswer: FC<QuestionAnswerProps> = ({ question }) => {
         className={styles.Textarea}
         placeholder="Type answer"
         //   value={answer}
-        //   onChange={evt => setAnswer(evt.target.value, id)}
+        value={answer}
+        onChange={evt => onAnswerChange?.(evt.target.value)}
         required
       />
     </div>
