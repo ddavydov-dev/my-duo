@@ -98,9 +98,9 @@ export const useUnits = (skillId: string) => {
     deleteRemote
   })
 
-  useEffect(() => {
-    if (!activeUnitId) setActiveUnitId(units[0].id || null)
-  }, [activeUnitId, units])
+  // useEffect(() => {
+  //   if (!activeUnitId) setActiveUnitId(units[0]?.id || null)
+  // }, [activeUnitId, units])
 
   return { units, activeUnitId, setActiveUnitId, ...rest }
 }

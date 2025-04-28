@@ -1,3 +1,4 @@
+import { useUser } from '@/entities/user'
 import { useDeleteAccount } from '@/entities/user/model/useDeleteAccount'
 import { Button } from '@/shared/ui/Button'
 import { Page } from '@/widgets/Page'
@@ -8,9 +9,12 @@ export const Route = createFileRoute('/profile')({
 })
 
 function RouteComponent() {
+  const { user, signOut } = useUser()
+
   return (
     <Page>
-      Hello "/profile/"!
+      <p>User: {JSON.stringify(user)}</p>
+      <Button onClick={signOut}>Log out</Button>
       <DeleteAccount />
     </Page>
   )

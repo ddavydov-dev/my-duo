@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, FC } from 'react'
+import { ComponentPropsWithoutRef, FC, ReactNode, useState } from 'react'
 import classNames from 'classnames'
 
 import styles from './Button.module.scss'
@@ -13,6 +13,7 @@ interface Props extends ComponentPropsWithoutRef<'button'> {
   isLoading?: boolean
   icon?: IconName
   isFullWidth?: boolean
+  postfix?: ReactNode
 }
 
 export const Button: FC<Props> = ({
@@ -23,8 +24,11 @@ export const Button: FC<Props> = ({
   children,
   icon,
   isFullWidth = false,
+  postfix,
   ...props
 }) => {
+  const [showPostfix, setShowPostfix] = useState(false)
+
   const styleVariant = styles[`Button--${variant}`]
 
   return (
@@ -35,12 +39,20 @@ export const Button: FC<Props> = ({
         [styles.isFullWidth]: isFullWidth
       })}
       disabled={disabled || isLoading}
+      onMouseOver={() => {
+        if (postfix) setShowPostfix(true)
+      }}
+      onMouseLeave={() => {
+        if (postfix) setShowPostfix(false)
+      }}
       {...props}
     >
       <Flex space={3} alignItems="center">
         {icon ? <Icon name={icon} className={styles.Icon} /> : null}
 
         {children ? <span className={styles.Children}>{children}</span> : null}
+
+        {postfix && showPostfix ? <div>{postfix}</div> : null}
       </Flex>
 
       {isLoading ? <Loader /> : null}

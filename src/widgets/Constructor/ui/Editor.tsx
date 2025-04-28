@@ -34,9 +34,12 @@ export const Editor = () => {
       style={{
         display: 'flex',
         flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
         padding: 20,
         width: '100%',
-        height: '100vh'
+        height: '100vh',
+        position: 'relative'
       }}
     >
       <div
@@ -45,9 +48,13 @@ export const Editor = () => {
           gap: 16,
           marginBottom: 20,
           height: 120,
+          width: '100%',
           justifyContent: 'center',
           alignItems: 'center',
-          borderBottom: '2px solid #E5E5E5'
+          borderBottom: '2px solid #E5E5E5',
+          position: 'absolute',
+          top: 0,
+          left: 0
         }}
       >
         {exercises.map((exercise, index) => (

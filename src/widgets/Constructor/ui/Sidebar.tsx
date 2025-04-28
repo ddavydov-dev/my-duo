@@ -7,10 +7,10 @@ export const Sidebar = () => {
   return (
     <div
       style={{
-        width: 300,
+        minWidth: 225,
         borderRight: '1px solid #E0E0E0',
         height: '100vh',
-        padding: '32px 24px'
+        padding: '32px 20px 32px 24px'
       }}
     >
       <h1 style={{ marginBottom: 24 }}>{activeSkill?.title}</h1>

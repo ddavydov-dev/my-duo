@@ -2,21 +2,27 @@ import { useUnits } from '@/entities/unit'
 import { FC, useCallback } from 'react'
 import { Lessons } from './Lessons'
 import { Button } from '@/shared/ui/Button'
+import { Accordion } from '@/shared/ui/Accordion'
 
 interface UnitsProps {
   skillId?: string
 }
 
 export const Units: FC<UnitsProps> = ({ skillId }) => {
-  const { units, activeUnitId, setActiveUnitId, create: createUnit } = useUnits(skillId || '')
+  const { units, activeUnitId, setActiveUnitId, create, remove } = useUnits(skillId || '')
+
+  const handleUnitToggle = useCallback(
+    (unitId: string) => setActiveUnitId(prev => (unitId === prev ? null : unitId)),
+    [setActiveUnitId]
+  )
 
   const addUnit = useCallback(() => {
-    createUnit({
+    create({
       title: `Unit ${units.length + 1}`,
       skillId: skillId || '',
       order: units.length
     })
-  }, [skillId, createUnit, units.length])
+  }, [skillId, create, units.length])
 
   return (
     <div>
@@ -24,24 +30,19 @@ export const Units: FC<UnitsProps> = ({ skillId }) => {
         const isUnitActive = unit.id === activeUnitId
 
         return (
-          <div key={unit.id}>
-            <Button
-              style={{
-                padding: '12px 8px',
-                color: isUnitActive ? '#0097DC' : '#4B4B4B',
-                backgroundColor: isUnitActive ? '#D9F4FF' : 'inherit',
-                justifyContent: 'flex-start',
-                textTransform: 'initial'
-              }}
-              isFullWidth
-              onClick={() => setActiveUnitId(unit.id)}
-              variant="ghost"
-            >
-              {unit.title}
-            </Button>
-
-            {isUnitActive ? <Lessons unitId={activeUnitId} /> : null}
-          </div>
+          <Accordion
+            isOpen={isUnitActive}
+            onToggle={() => handleUnitToggle(unit.id)}
+            key={unit.id}
+            title={unit.title}
+            options={
+              <Button variant="ghost" onClick={() => remove(unit.id)}>
+                Delete
+              </Button>
+            }
+          >
+            <Lessons unitId={activeUnitId!} />
+          </Accordion>
         )
       })}
 
@@ -49,7 +50,13 @@ export const Units: FC<UnitsProps> = ({ skillId }) => {
         isFullWidth
         variant="ghost"
         onClick={addUnit}
-        style={{ height: 43, justifyContent: 'flex-start', textTransform: 'initial' }}
+        style={{
+          height: 43,
+          justifyContent: 'flex-start',
+          textTransform: 'initial',
+          padding: '0 12px'
+        }}
+        icon="plus"
       >
         Add a new unit
       </Button>

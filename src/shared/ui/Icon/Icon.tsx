@@ -11,6 +11,10 @@ export type IconName =
   | 'constructor'
   | 'profile'
   | 'messageTriangle'
+  | 'plus'
+  | 'arrow'
+  | 'settings'
+  | 'lesson'
 
 // TODO: find a better solution
 const iconViewBoxes: Record<IconName, { width: number; height: number }> = {
@@ -41,6 +45,22 @@ const iconViewBoxes: Record<IconName, { width: number; height: number }> = {
   messageTriangle: {
     width: 18,
     height: 20
+  },
+  plus: {
+    width: 13,
+    height: 13
+  },
+  arrow: {
+    width: 6,
+    height: 10
+  },
+  settings: {
+    width: 17,
+    height: 3
+  },
+  lesson: {
+    width: 42,
+    height: 34
   }
 }
 

@@ -56,7 +56,7 @@ export const QuestionAnswer: FC<QuestionAnswerProps> = ({
             value={question}
             onChange={e => onQuestionChange?.(e.target.value)}
             required
-            autoFocus
+            // autoFocus
           />
           {/* <div className={styles.WrapperTwo}> */}
           {/* <textarea
