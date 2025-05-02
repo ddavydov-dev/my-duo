@@ -1,32 +1,54 @@
-export const getLessonPositions = (lessonsLength: number): number[] => {
-  const center = 496 / 2
-  const lessonWidth = 70
-  const maxOffset = lessonWidth * 2 // Maximum offset from center
-  const positions: number[] = []
+type LayoutConfig = {
+  /** Total width of the container (px) */
+  containerWidth?: number
+  /** Width of each lesson block (px) */
+  lessonWidth?: number
+  /** How many lessons between direction flips */
+  zigZagInterval?: number
+  /** Fraction of lessonWidth to step each ring */
+  offsetFraction?: number
+  /** Max offset expressed as a multiple of lessonWidth */
+  maxOffsetMultiplier?: number
+  /** Initial direction of the zig-zag */
+  initialDirection?: number
+}
 
-  // Start at center
-  positions.push(center)
+export const getLessonPositions = (
+  lessonsCount: number,
+  {
+    containerWidth = 496,
+    lessonWidth = 70,
+    zigZagInterval = 3,
+    offsetFraction = 0.5, // each ring adds 0.5 * lessonWidth
+    maxOffsetMultiplier = 1, // max offset = 1 * lessonWidth
+    initialDirection = -1
+  }: LayoutConfig = {}
+): number[] => {
+  const center = containerWidth / 2
+  const step = lessonWidth * offsetFraction
+  const maxOffset = lessonWidth * maxOffsetMultiplier
 
-  if (lessonsLength <= 1) return positions
+  // if 1 or 2 lessons, just stack in the center
+  if (lessonsCount <= 2) return Array(lessonsCount).fill(center)
 
-  if (lessonsLength === 2) return [center, center]
+  let direction = initialDirection
+  let ring = 0 // how many times we’ve “stepped” since flip
+  let offset = 0 // running offset
 
-  let currentDirection = Math.random() > 0.5 ? 1 : -1 // 1 for right, -1 for left
-  let currentOffset = lessonWidth
-  let lessonsInCurrentDirection = 0
-
-  for (let i = 1; i < lessonsLength; i++) {
-    // If we've reached the edge or done 4 lessons in this direction
-    if (currentOffset >= maxOffset || lessonsInCurrentDirection >= 4) {
-      currentDirection *= -1 // Reverse direction
-      currentOffset = 0
-      lessonsInCurrentDirection = 0
+  return Array.from({ length: lessonsCount }, (_, idx) => {
+    if (idx === 0 || idx === lessonsCount - 1) {
+      // first and last lesson are always centered
+      offset = 0
+    } else {
+      // flip direction every zigZagInterval lessons
+      if (idx % zigZagInterval === 0) {
+        direction *= -1
+        ring = 0
+      }
+      ring++
+      offset = Math.max(-maxOffset, Math.min(maxOffset, offset + ring * step * direction))
     }
 
-    positions.push(center + currentOffset * currentDirection)
-    currentOffset += lessonWidth
-    lessonsInCurrentDirection++
-  }
-
-  return positions
+    return center + offset
+  })
 }

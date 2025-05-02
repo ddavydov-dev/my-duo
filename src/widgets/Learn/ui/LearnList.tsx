@@ -96,9 +96,9 @@ export const LearnList = () => {
       {activeUnit && (
         <div className={styles.Sticky}>
           <div className={styles.Space} />
-
           <div className={styles.Content} style={{ backgroundColor: '#58cc02' }}>
             {activeUnit.title}
+            <button className={styles.EditButton}>Edit</button>
           </div>
         </div>
       )}
