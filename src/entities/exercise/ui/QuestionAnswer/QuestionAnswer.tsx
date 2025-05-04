@@ -1,6 +1,6 @@
 import { useRive } from '@rive-app/react-canvas'
 import styles from './QuestionAnswer.module.scss'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { Icon } from '@/shared/ui/Icon'
 import { SmartTextarea } from '@/shared/ui/SmartTextarea'
 import { CHARACTER_HEIGHT, CHARACTER_WIDTH } from '../../config/consts'
@@ -10,32 +10,30 @@ interface QuestionAnswerProps {
   answer?: string
   onQuestionChange?: (question: string) => void
   onAnswerChange?: (answer: string) => void
+  isAnswerCorrect?: boolean | null
+  isEditing?: boolean
 }
 
 export const QuestionAnswer: FC<QuestionAnswerProps> = ({
   question,
   onQuestionChange,
   answer,
-  onAnswerChange
+  onAnswerChange,
+  isAnswerCorrect,
+  isEditing = false
   // TODO: should be one onChange
 }) => {
-  const { RiveComponent } = useRive({
+  const { rive, RiveComponent } = useRive({
     src: '/oscar.riv',
     animations: 'idle_00',
     autoplay: true
   })
 
-  // const playSuccess = useCallback(() => {
-  //   if (rive) {
-  //     rive.play('correct_00')
-  //   }
-  // }, [rive])
-
-  // const playFail = useCallback(() => {
-  //   if (rive) {
-  //     rive.play('incorrect_00')
-  //   }
-  // }, [rive])
+  useEffect(() => {
+    if (typeof isAnswerCorrect === 'boolean' && rive) {
+      rive.play(isAnswerCorrect ? 'correct_00' : 'incorrect_00')
+    }
+  }, [isAnswerCorrect, rive])
 
   return (
     <div className={styles.Container}>
@@ -51,34 +49,18 @@ export const QuestionAnswer: FC<QuestionAnswerProps> = ({
         />
 
         <div style={{ position: 'relative' }}>
-          <SmartTextarea
-            placeholder="Set question"
-            value={question}
-            onChange={e => onQuestionChange?.(e.target.value)}
-            required
-            // autoFocus
-          />
-          {/* <div className={styles.WrapperTwo}> */}
-          {/* <textarea
-            ref={taRef}
-            className={styles.QuestionTextarea}
-            placeholder="Set question"
-            //   value={question === null ? '' : question}
-            //   onChange={changeQuestion}
-            value={value}
-            // placeholder="Type here..."
-            onChange={e => setValue(e.target.value)}
-            autoFocus={true}
-            required
-          />
-          <div ref={ghostRef} className={styles.ghost} /> */}
+          {isEditing ? (
+            <SmartTextarea
+              placeholder="Set question"
+              value={question}
+              onChange={e => onQuestionChange?.(e.target.value)}
+              required
+              // autoFocus
+            />
+          ) : (
+            <p className={styles.Question}>{question}</p>
+          )}
 
-          {/* <p className={styles.Question}>
-            </p> */}
-          {/* </div> */}
-          {/* <div className={styles.TriangleContainer}>
-            <span className={styles.Triangle} />
-          </div> */}
           <Icon name="messageTriangle" className={styles.Triangle} />
         </div>
       </div>
@@ -90,6 +72,7 @@ export const QuestionAnswer: FC<QuestionAnswerProps> = ({
         value={answer}
         onChange={evt => onAnswerChange?.(evt.target.value)}
         required
+        disabled={!isEditing && isAnswerCorrect !== null}
       />
     </div>
   )

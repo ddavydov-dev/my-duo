@@ -1,26 +1,24 @@
-// src/shared/useResource.ts
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useUser } from '@/entities/user'
 import { StorageAdapter } from '../storage'
+import { CascadeConfig, cascadeDeleteLocal } from '../cascade'
 
 interface ResourceConfig<T extends { id: string }, C> {
-  keys: string[] // e.g. 'units'
-  // fetchAll: () => Promise<T[]>
+  keys: string[]
   adapter: StorageAdapter<T>
   getFilterFn?: (item: T) => boolean
-  // tableName?: string // supabase table name
   createLocal?: (dto: C) => T
   createRemote?: (item: T) => Promise<boolean>
-  // updateLocal?: (dto: U) => T
   updateRemote?: (dto: T) => Promise<boolean>
   deleteRemote?: (id: string) => Promise<boolean>
+  cascadeLocal?: CascadeConfig<T>
 }
 
 export function useResource<T extends { id: string }, C>(config: ResourceConfig<T, C>) {
   const qc = useQueryClient()
   const { user } = useUser()
 
-  // 1. read/fallback // TODO: update to also get from the db and then merge
+  // TODO: update to also get from the db and then merge
   const query = useQuery<T[]>({
     queryKey: config.keys,
     queryFn: async () => {
@@ -31,7 +29,6 @@ export function useResource<T extends { id: string }, C>(config: ResourceConfig<
     initialData: []
   })
 
-  // 2. create
   const create = useMutation({
     mutationFn: async (dto: C) => {
       // local
@@ -55,7 +52,6 @@ export function useResource<T extends { id: string }, C>(config: ResourceConfig<
     }
   })
 
-  // 3. update
   const update = useMutation({
     mutationFn: async (item: T) => {
       const all = await config.adapter.getAll()
@@ -68,14 +64,21 @@ export function useResource<T extends { id: string }, C>(config: ResourceConfig<
     }
   })
 
-  // 4. remove
   const remove = useMutation({
     mutationFn: async (id: string) => {
-      // if (user && config.deleteRemote) await config.deleteRemote(id)
+      if (config.cascadeLocal) {
+        const next = await cascadeDeleteLocal(config.cascadeLocal, id)
+        qc.setQueryData(config.keys, next)
+        return
+      }
+
       const all = await config.adapter.getAll()
       const next = all.filter(i => i.id !== id)
       await config.adapter.saveAll(next)
       qc.setQueryData(config.keys, next)
+    },
+    onSettled: () => {
+      qc.invalidateQueries()
     }
   })
 

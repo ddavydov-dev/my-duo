@@ -11,7 +11,7 @@ interface LessonsProps {
 
 export const Lessons: FC<LessonsProps> = ({ unitId }) => {
   const { lessonId, setLessonId } = useContext(ConstructorContext)
-  const { lessons, create, remove } = useLessons(unitId)
+  const { data: lessons, create, remove } = useLessons(unitId)
 
   const addLesson = useCallback(() => {
     create({
@@ -61,27 +61,9 @@ const Lesson: FC<{ id: string; title: string; onRemove: VoidFunction }> = ({
   onRemove
 }) => {
   const { lessonId, setLessonId } = useContext(ConstructorContext)
-  // const [showModal, setShowModal] = useState<[number, number] | null>(null)
-
-  // const lessonRef = useRef<HTMLButtonElement | null>(null)
 
   return (
     <>
-      {/* <Button
-        onClick={() => setLessonId(id)}
-        style={{
-          height: 33,
-          color: id === lessonId ? '#0097DC' : '#4B4B4B',
-          backgroundColor: id === lessonId ? '#D9F4FF' : 'inherit',
-          justifyContent: 'flex-start',
-          textTransform: 'initial'
-        }}
-        isFullWidth
-        variant="ghost"
-        
-      >
-        {title}
-      </Button> */}
       <Options
         menu={
           <Button variant="ghost" onClick={onRemove}>

@@ -3,7 +3,7 @@ import { Lesson } from '@/entities/lesson'
 import { Skill } from '@/entities/skill'
 import { Unit } from '@/entities/unit'
 
-export class StorageAdapter<T extends { id: string }> {
+export class StorageAdapter<T> {
   constructor(private key: string) {}
 
   async getAll(filterFn?: (item: T) => boolean): Promise<T[]> {

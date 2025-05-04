@@ -6,42 +6,85 @@ import { useLessons } from '@/entities/lesson'
 import type { Lesson as LessonType } from '@/entities/lesson'
 import { Icon } from '@/shared/ui/Icon'
 import { getLessonPositions } from '../utils/getLessonPositions'
+import { useNavigate } from '@tanstack/react-router'
+import { Unit, UNIT_STYLE_COLORS, UnitStyle } from '@/entities/unit/config/types'
+import classNames from 'classnames'
 
-const UnitSection = ({ unit }: { unit: { id: string; title: string } }) => {
-  const { lessons } = useLessons(unit.id)
+const UnitSection = ({
+  unit,
+  initialDirection,
+  isFirst
+}: {
+  unit: Unit
+  initialDirection: number
+  isFirst: boolean
+}) => {
+  const { data: lessons } = useLessons(unit.id)
 
-  const lessonPositions = useMemo(() => getLessonPositions(lessons.length), [lessons.length])
+  const lessonPositions = useMemo(
+    () => getLessonPositions(lessons.length, { initialDirection }),
+    [lessons.length, initialDirection]
+  )
 
   return (
     <div className={styles.UnitSection}>
-      <header className={styles.UnitHeader}>
-        <hr className={styles.Line} />
-        <h2 className={styles.Title}>{unit.title}</h2>
-        <hr className={styles.Line} />
-      </header>
+      {!isFirst ? (
+        <header className={styles.UnitHeader}>
+          <hr className={styles.Line} />
+          <h2 className={styles.Title}>{unit.title}</h2>
+          <hr className={styles.Line} />
+        </header>
+      ) : null}
 
       <div className={styles.LessonGrid}>
         {lessons.map((lesson, index) => (
-          <Lesson key={lesson.id} position={lessonPositions[index]} {...lesson} />
+          <Lesson
+            key={lesson.id}
+            position={lessonPositions[index]}
+            {...lesson}
+            unitStyle={unit.style}
+          />
         ))}
       </div>
     </div>
   )
 }
 
-const Lesson: FC<LessonType & { position: number }> = ({ position }) => {
+const Lesson: FC<LessonType & { position: number; unitStyle: UnitStyle }> = ({
+  position,
+  id,
+  unitStyle,
+  isCompleted
+}) => {
+  const navigate = useNavigate({ from: '/lesson' })
   return (
     <div className={styles.LessonContainer}>
-      <button className={styles.LessonButton} style={{ left: position }}>
-        <Icon name="lesson" className={styles.Icon} />
+      <button
+        className={styles.LessonButton}
+        style={
+          {
+            left: position,
+            '--unit-color': isCompleted ? UNIT_STYLE_COLORS[unitStyle] : '#e5e5e5'
+          } as React.CSSProperties
+        }
+        onClick={() => {
+          localStorage.setItem('activeLessonId', id)
+          navigate({ to: `/lesson` })
+        }}
+      >
+        <Icon
+          name="lesson"
+          className={classNames(styles.Icon, { [styles.isCompleted]: isCompleted })}
+        />
       </button>
     </div>
   )
 }
 
 export const LearnList = () => {
-  const { activeSkill } = useSkills()
-  const { units } = useUnits(activeSkill?.id || '')
+  const { data: skills } = useSkills()
+  const activeSkill = useMemo(() => skills.find(s => s.isActive), [skills])
+  const { data: units } = useUnits(activeSkill?.id || '')
   const [activeUnitId, setActiveUnitId] = useState<string | null>(null)
 
   // scroll container + refs for each unit
@@ -96,7 +139,10 @@ export const LearnList = () => {
       {activeUnit && (
         <div className={styles.Sticky}>
           <div className={styles.Space} />
-          <div className={styles.Content} style={{ backgroundColor: '#58cc02' }}>
+          <div
+            className={styles.Content}
+            style={{ backgroundColor: UNIT_STYLE_COLORS[activeUnit.style] }}
+          >
             {activeUnit.title}
             <button className={styles.EditButton}>Edit</button>
           </div>
@@ -104,7 +150,7 @@ export const LearnList = () => {
       )}
 
       <div className={styles.ScrollArea}>
-        {units.map(unit => (
+        {units.map((unit, idx) => (
           <div
             key={unit.id}
             data-unit-id={unit.id}
@@ -112,7 +158,11 @@ export const LearnList = () => {
               sectionRefs.current[unit.id] = el
             }}
           >
-            <UnitSection unit={unit} />
+            <UnitSection
+              unit={unit}
+              initialDirection={idx % 2 === 1 ? -1 : 1}
+              isFirst={idx === 0}
+            />
           </div>
         ))}
       </div>

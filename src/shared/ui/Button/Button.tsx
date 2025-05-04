@@ -9,7 +9,7 @@ import { IconName } from '../Icon/Icon'
 
 // TODO: divide variant into variant and kind
 interface Props extends ComponentPropsWithoutRef<'button'> {
-  variant?: 'primary-filled' | 'primary-ghost' | 'secondary' | 'ghost'
+  variant?: 'primary-filled' | 'primary-ghost' | 'secondary' | 'ghost' | 'error'
   isLoading?: boolean
   icon?: IconName
   isFullWidth?: boolean
@@ -36,7 +36,8 @@ export const Button: FC<Props> = ({
       type={type}
       className={classNames(styles.Button, styleVariant, {
         [styles.isLoading]: isLoading,
-        [styles.isFullWidth]: isFullWidth
+        [styles.isFullWidth]: isFullWidth,
+        [styles.isDisabled]: disabled
       })}
       disabled={disabled || isLoading}
       onMouseOver={() => {

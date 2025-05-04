@@ -6,4 +6,5 @@ export interface Lesson {
   title: string
   order: number
   exercises: Exercise[]
+  isCompleted: boolean
 }

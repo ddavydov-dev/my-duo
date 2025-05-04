@@ -1,8 +1,10 @@
 import { useSkills } from '@/entities/skill'
 import { Units } from './Units'
+import { useMemo } from 'react'
 
 export const Sidebar = () => {
-  const { activeSkill } = useSkills()
+  const { data: skills } = useSkills()
+  const activeSkill = useMemo(() => skills.find(s => s.isActive), [skills])
 
   return (
     <div

@@ -53,6 +53,21 @@
     width: 100%;
   }
 
+  &.isDisabled {
+    cursor: default;
+    transform: translateY(4px) translateZ(0);
+    color: rgb(175, 175, 175);
+
+    &::before {
+      background-color: rgb(229, 229, 229);
+      box-shadow: none;
+    }
+
+    &:hover {
+      filter: none !important;
+    }
+  }
+
   &:hover:not(.isLoading) {
     filter: brightness(0.9);
   }
@@ -93,6 +108,17 @@
       border-radius: 12px;
       box-shadow: 0 4px 0;
       color: rgb(var(--color-tree-frog-always-light));
+    }
+  }
+
+  &--error {
+    color: rgb(var(--color-snow-always-light));
+
+    &::before {
+      background-color: rgb(255, 75, 75);
+      border-radius: 12px;
+      box-shadow: 0 4px 0;
+      color: rgb(234, 43, 43);
     }
   }
 

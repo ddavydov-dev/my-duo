@@ -15,6 +15,8 @@ export type IconName =
   | 'arrow'
   | 'settings'
   | 'lesson'
+  | 'exerciseSuccess'
+  | 'exerciseFailure'
 
 // TODO: find a better solution
 const iconViewBoxes: Record<IconName, { width: number; height: number }> = {
@@ -61,6 +63,14 @@ const iconViewBoxes: Record<IconName, { width: number; height: number }> = {
   lesson: {
     width: 42,
     height: 34
+  },
+  exerciseSuccess: {
+    width: 41,
+    height: 29
+  },
+  exerciseFailure: {
+    width: 30,
+    height: 30
   }
 }
 

@@ -55,11 +55,19 @@
 }
 
 .Question {
-  font-size: 19px;
-  line-height: 39px;
   font-family: 'Nunito', sans-serif;
   color: #3c3c3c;
   margin: 0;
+
+  letter-spacing: 0;
+  font-size: 20px;
+  line-height: 32px;
+  padding: 10px 14px 10px 14px;
+
+  // margin-left: 8px;
+  background-color: #fff;
+  border: 2px solid #e5e5e5;
+  border-radius: 12px;
 }
 
 .Triangle {

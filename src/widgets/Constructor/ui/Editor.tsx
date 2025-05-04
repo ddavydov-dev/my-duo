@@ -1,6 +1,6 @@
 import { Exercise } from '@/entities/exercise/ui/Exercise'
 import { QuestionAnswer } from '@/entities/exercise/ui/QuestionAnswer'
-import { useCallback, useContext, useMemo } from 'react'
+import { useCallback, useContext, useMemo, useState } from 'react'
 import { ConstructorContext } from './Constructor'
 import { useExercises } from '@/entities/exercise'
 import { Button } from '@/shared/ui/Button'
@@ -8,12 +8,12 @@ import { Button } from '@/shared/ui/Button'
 export const Editor = () => {
   const { lessonId } = useContext(ConstructorContext)
   const {
-    exercises,
-    activeExerciseId,
-    setActiveExerciseId,
+    data: exercises,
     create: createExercise,
-    update: updateExercise
+    update: updateExercise,
+    remove: removeExercise
   } = useExercises(lessonId || '')
+  const [activeExerciseId, setActiveExerciseId] = useState<string | null>(null)
 
   const addExercise = useCallback(() => {
     createExercise({
@@ -28,6 +28,14 @@ export const Editor = () => {
     () => exercises.find(e => e.id === activeExerciseId),
     [exercises, activeExerciseId]
   )
+
+  const handleDelete = useCallback(() => {
+    if (activeExerciseId) {
+      removeExercise(activeExerciseId)
+    }
+  }, [activeExerciseId, removeExercise])
+
+  if (!lessonId) return <div>No lesson id</div>
 
   return (
     <div
@@ -93,11 +101,23 @@ export const Editor = () => {
               updateExercise({ ...newExercise })
             }}
             answer={activeExercise.answer}
+            onAnswerChange={(newAnswer: string) => {
+              const newExercise = { ...activeExercise, answer: newAnswer }
+              updateExercise({ ...newExercise })
+            }}
+            isEditing
           />
         </Exercise>
       ) : (
         'Choose exercise type'
       )}
+
+      <div>
+        <h2>Controls</h2>
+        <div style={{ display: 'flex' }}>
+          <Button onClick={handleDelete}>Delete</Button>
+        </div>
+      </div>
     </div>
   )
 }

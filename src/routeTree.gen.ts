@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as ProfileImport } from './routes/profile'
+import { Route as LessonImport } from './routes/lesson'
 import { Route as LearnImport } from './routes/learn'
 import { Route as ConstructorImport } from './routes/constructor'
 import { Route as IndexImport } from './routes/index'
@@ -26,6 +27,12 @@ import { Route as authAuthCallbackIndexImport } from './routes/(auth)/auth/callb
 const ProfileRoute = ProfileImport.update({
   id: '/profile',
   path: '/profile',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LessonRoute = LessonImport.update({
+  id: '/lesson',
+  path: '/lesson',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -102,6 +109,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LearnImport
       parentRoute: typeof rootRoute
     }
+    '/lesson': {
+      id: '/lesson'
+      path: '/lesson'
+      fullPath: '/lesson'
+      preLoaderRoute: typeof LessonImport
+      parentRoute: typeof rootRoute
+    }
     '/profile': {
       id: '/profile'
       path: '/profile'
@@ -153,6 +167,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/constructor': typeof ConstructorRoute
   '/learn': typeof LearnRoute
+  '/lesson': typeof LessonRoute
   '/profile': typeof ProfileRoute
   '/register': typeof RegisterIndexRoute
   '/forgot-password': typeof authForgotPasswordIndexRoute
@@ -165,6 +180,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/constructor': typeof ConstructorRoute
   '/learn': typeof LearnRoute
+  '/lesson': typeof LessonRoute
   '/profile': typeof ProfileRoute
   '/register': typeof RegisterIndexRoute
   '/forgot-password': typeof authForgotPasswordIndexRoute
@@ -178,6 +194,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/constructor': typeof ConstructorRoute
   '/learn': typeof LearnRoute
+  '/lesson': typeof LessonRoute
   '/profile': typeof ProfileRoute
   '/register/': typeof RegisterIndexRoute
   '/(auth)/forgot-password/': typeof authForgotPasswordIndexRoute
@@ -192,6 +209,7 @@ export interface FileRouteTypes {
     | '/'
     | '/constructor'
     | '/learn'
+    | '/lesson'
     | '/profile'
     | '/register'
     | '/forgot-password'
@@ -203,6 +221,7 @@ export interface FileRouteTypes {
     | '/'
     | '/constructor'
     | '/learn'
+    | '/lesson'
     | '/profile'
     | '/register'
     | '/forgot-password'
@@ -214,6 +233,7 @@ export interface FileRouteTypes {
     | '/'
     | '/constructor'
     | '/learn'
+    | '/lesson'
     | '/profile'
     | '/register/'
     | '/(auth)/forgot-password/'
@@ -227,6 +247,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ConstructorRoute: typeof ConstructorRoute
   LearnRoute: typeof LearnRoute
+  LessonRoute: typeof LessonRoute
   ProfileRoute: typeof ProfileRoute
   RegisterIndexRoute: typeof RegisterIndexRoute
   authForgotPasswordIndexRoute: typeof authForgotPasswordIndexRoute
@@ -239,6 +260,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ConstructorRoute: ConstructorRoute,
   LearnRoute: LearnRoute,
+  LessonRoute: LessonRoute,
   ProfileRoute: ProfileRoute,
   RegisterIndexRoute: RegisterIndexRoute,
   authForgotPasswordIndexRoute: authForgotPasswordIndexRoute,
@@ -260,6 +282,7 @@ export const routeTree = rootRoute
         "/",
         "/constructor",
         "/learn",
+        "/lesson",
         "/profile",
         "/register/",
         "/(auth)/forgot-password/",
@@ -276,6 +299,9 @@ export const routeTree = rootRoute
     },
     "/learn": {
       "filePath": "learn.tsx"
+    },
+    "/lesson": {
+      "filePath": "lesson.tsx"
     },
     "/profile": {
       "filePath": "profile.tsx"

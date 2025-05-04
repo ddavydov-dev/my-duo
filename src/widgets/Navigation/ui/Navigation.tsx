@@ -67,7 +67,7 @@ export function Navigation({ isNavClosed = false }: { isNavClosed?: boolean }) {
               <div className={styles.IconWrapper}>
                 <Icon name={icon} />
               </div>
-              <span>{!user ? 'Sign up' : title}</span>
+              <span>{href === '/profile' && !user ? 'Sign up' : title}</span>
             </span>
           </Link>
         ))}

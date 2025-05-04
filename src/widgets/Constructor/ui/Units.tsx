@@ -1,5 +1,5 @@
 import { useUnits } from '@/entities/unit'
-import { FC, useCallback } from 'react'
+import { FC, useCallback, useState } from 'react'
 import { Lessons } from './Lessons'
 import { Button } from '@/shared/ui/Button'
 import { Accordion } from '@/shared/ui/Accordion'
@@ -9,7 +9,9 @@ interface UnitsProps {
 }
 
 export const Units: FC<UnitsProps> = ({ skillId }) => {
-  const { units, activeUnitId, setActiveUnitId, create, remove } = useUnits(skillId || '')
+  const { data: units, create, remove } = useUnits(skillId || '')
+
+  const [activeUnitId, setActiveUnitId] = useState<string | null>(null)
 
   const handleUnitToggle = useCallback(
     (unitId: string) => setActiveUnitId(prev => (unitId === prev ? null : unitId)),
