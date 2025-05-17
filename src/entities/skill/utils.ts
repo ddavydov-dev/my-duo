@@ -1,17 +1,17 @@
-import { Project } from './config/types'
+import type { Skill } from './config/types'
 
-const LOCAL_STORAGE_KEY = 'offline_projects'
+const LOCAL_STORAGE_KEY = 'offline_skills'
 
-export const getLocalProjects = async (): Promise<Project[]> => {
+export const getLocalSkills = async (): Promise<Skill[]> => {
   const json = localStorage.getItem(LOCAL_STORAGE_KEY)
   if (!json) return []
   try {
-    return JSON.parse(json) as Project[]
+    return JSON.parse(json) as Skill[]
   } catch {
     return []
   }
 }
 
-export const setLocalProjects = async (projects: Project[]): Promise<void> => {
-  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(projects))
+export const setLocalSkills = async (skills: Skill[]): Promise<void> => {
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(skills))
 }

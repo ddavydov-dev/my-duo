@@ -1,0 +1,41 @@
+@import 'tailwindcss';
+
+@font-face {
+  font-family: 'din-round';
+  font-style: normal;
+  font-weight: normal;
+  src: url('/fonts/dcf3e686284c5e7eeca4f8e200392c01.woff2') format('woff2');
+  font-display: swap;
+}
+
+/* @font-face {
+  font-family: 'din-round';
+  font-style: normal;
+  font-weight: 600;
+  src: url('/fonts/DinRound-SemiBold.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'din-round';
+  font-style: normal;
+  font-weight: 700;
+  src: url('/fonts/DinRound-Bold.woff2') format('woff2');
+  font-display: swap;
+} */
+
+@theme {
+  --font-sans: 'din-round', sans-serif;
+  --font-serif: 'din-round', serif;
+  --font-mono: 'din-round', monospace;
+  --font-SystemUI: 'din-round', 'system-ui';
+
+  --color-snow: rgb(255, 255, 255);
+  --color-hare: rgb(175, 175, 175);
+  --color-swan: rgb(229, 229, 229);
+  --color-polar: rgb(247, 247, 247);
+  --color-iguana: rgb(221, 244, 255);
+  --color-blue-jay: rgb(132, 216, 255);
+  --color-macaw: rgb(28, 176, 246);
+  --color-wolf: rgb(119, 119, 119);
+}

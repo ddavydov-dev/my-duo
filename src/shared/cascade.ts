@@ -20,16 +20,6 @@ export async function cascadeDeleteLocal<T extends { id: string }>(
   config: CascadeConfig<T>,
   id: string
 ): Promise<T[]> {
-  // 1) delete children first
-  // if (config.child) {
-  //   const { config: childConfig, filterFn } = config.child
-  //   const allKids = await childConfig.adapter.getAll()
-  //   const mine = allKids.filter(k => filterFn(id, k))
-  //   for (const k of mine) {
-  //     await cascadeDeleteLocal(childConfig, k.id)
-  //   }
-  // }
-
   if (config.child) {
     const { config: childConfig, filterFn } = config.child
     const allChildren = await childConfig.adapter.getAll()

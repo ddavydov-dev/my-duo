@@ -1,6 +1,6 @@
 # My Duo
 
-An open-source clone of language learning app [Duolingo](https://www.duolingo.com/) with additional functionality of adding custom lessons.
+An open-source inspired by [Duolingo](https://www.duolingo.com/) app where you can build your custom lessons.
 
 ## Adding a skill
 

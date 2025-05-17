@@ -1,8 +1,6 @@
-import { FC } from 'react'
-
 import styles from './Loader.module.scss'
 
-export const Loader: FC = () => {
+export const Loader = () => {
   return (
     <div className={styles.Loader}>
       {Array.from({ length: 3 }, (_, i) => (

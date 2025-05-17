@@ -13,7 +13,8 @@ export const Route = createFileRoute('/lesson')({
 })
 
 function RouteComponent() {
-  const id = localStorage.getItem('activeLessonId') as string
+  const id = localStorage.getItem('activeLessonId') ?? ''
+  const navigate = useNavigate({ from: '/lesson' })
 
   const { data: initialExercises } = useExercises(id)
   const [progress, setProgress] = useState(0)
@@ -24,8 +25,6 @@ function RouteComponent() {
   useEffect(() => {
     if (!activeExerciseId && exercises.length > 0) setActiveExerciseId(exercises[0]?.id || null)
   }, [activeExerciseId, exercises])
-
-  const navigate = useNavigate({ from: '/lesson' })
 
   const activeExercise = useMemo(
     () => exercises.find(exercise => exercise.id === activeExerciseId),
@@ -67,6 +66,10 @@ function RouteComponent() {
     setIsAnswerCorrect(null)
     setActiveExerciseId(exercises[1]?.id || null)
   }, [exercises, isAnswerCorrect])
+
+  if (id.length === 0) {
+    return navigate({ to: '/learn' })
+  }
 
   if (exercises.length === 0) {
     return <div>The lesson is finished</div>

@@ -1,19 +1,20 @@
-import { getLocalProjects } from '@/entities/skill'
+import { getLocalSkills } from '@/entities/skill'
 import { supabase } from '@/supabase'
 
-export async function syncLocalDataToSupabase(userId: string) {
-  const localProjects = await getLocalProjects()
+export async function syncLocalDataToSupabase() {
+  // export async function syncLocalDataToSupabase(userId: string) {
+  const localProjects = await getLocalSkills()
 
   for (const project of localProjects) {
-    const { data: projectRow, error: projectError } = await supabase.from('project').insert([
-      {
-        id: project.id,
-        profile_id: userId,
-        title: project.title,
-        is_public: project.isPublic,
-        created_at: project.createdAt
-      }
-    ])
+    // const { data: projectRow, error: projectError } = await supabase.from('project').insert([
+    //   {
+    //     id: project.id,
+    //     profile_id: userId,
+    //     title: project.title,
+    //     is_public: project.isPublic,
+    //     created_at: project.createdAt
+    //   }
+    // ])
 
     for (const unit of project.units) {
       await supabase.from('units').insert([

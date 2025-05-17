@@ -19,7 +19,7 @@ export class StorageAdapter<T> {
   }
 }
 
-export const skillsAdapter = new StorageAdapter<Skill>('offline_skills')
+export const skillsAdapter = new StorageAdapter<Skill>('offline_skills') // TODO turn into constants
 export const unitsAdapter = new StorageAdapter<Unit>('offline_units')
 export const lessonsAdapter = new StorageAdapter<Lesson>('offline_lessons')
 export const exercisesAdapter = new StorageAdapter<Exercise>('offline_exercises')

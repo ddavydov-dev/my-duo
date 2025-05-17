@@ -3,7 +3,7 @@ name: Release (Production)
 on:
   push:
     branches:
-      - refactor # main
+      - refactor # TODO: should be main
   workflow_dispatch:
 
 jobs:

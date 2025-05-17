@@ -16,12 +16,14 @@ export type LoginLocationState = {
   login?: 'signUp' | 'login'
 }
 
+type ProviderType = 'google' | 'github'
+
 function LoginPage() {
-  const [pending, setPending] = useState<'google' | 'github' | null>()
+  const [pending, setPending] = useState<ProviderType | null>(null)
   const state = useLocation({ select: ({ state }) => state as unknown as LoginLocationState })
   const [isSigningUp, setSigningUp] = useState(state.login === 'signUp')
 
-  const signInWith = (provider: 'google' | 'github') => {
+  const signInWith = (provider: ProviderType) => {
     setPending(provider)
     const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
     const redirectUrl = `${window.location.origin}/auth/callback`

@@ -74,18 +74,20 @@ const iconViewBoxes: Record<IconName, { width: number; height: number }> = {
   }
 }
 
-interface IconPropsType {
+interface PropsType {
   name: IconName
   // color?: 'primary' | 'secondary'
   className?: string
 }
 
-export const Icon: FC<IconPropsType> = ({ name, className }) => (
-  <svg
-    className={classNames(styles.Icon, className)}
-    width={iconViewBoxes[name].width}
-    height={iconViewBoxes[name].height}
-  >
-    <use href={`#${name}`} />
-  </svg>
-)
+export const Icon = ({ name, className }: PropsType) => {
+  return (
+    <svg
+      className={classNames(styles.Icon, className)}
+      width={iconViewBoxes[name].width}
+      height={iconViewBoxes[name].height}
+    >
+      <use href={`#${name}`} />
+    </svg>
+  )
+}

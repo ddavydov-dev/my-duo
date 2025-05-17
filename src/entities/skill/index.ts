@@ -1,3 +1,3 @@
 export type { Skill } from './config/types'
-export { getLocalProjects, setLocalProjects } from './utils'
+export { getLocalSkills, setLocalSkills } from './utils'
 export { useSkills } from './model/useSkills'

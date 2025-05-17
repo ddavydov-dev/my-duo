@@ -19,7 +19,7 @@ import { Lesson } from '@/entities/lesson/config/types'
 export interface ResourceDef<T extends { id: string }, C> {
   adapter: StorageAdapter<T>
   table: string
-  /** which field holds the parent id? */
+  /** which field holds the parent id? e.g. `unitId` for `Lesson` */
   parentKey?: keyof T
   /** how to build a new local entity */
   createLocal: (dto: C) => T
@@ -38,13 +38,13 @@ export const resourceDefs: ResourceRegistry = {
   skills: {
     adapter: skillsAdapter,
     table: 'skills',
-    createLocal: ({ title, isPublic, userId }: CreateSkillArgs): Skill => ({
+    createLocal: ({ title, isPublic = false, userId = '' }: CreateSkillArgs): Skill => ({
       id: crypto.randomUUID(),
       title,
-      isPublic: isPublic ?? false,
+      isPublic,
       createdAt: new Date().toISOString(),
       isActive: true,
-      userId: userId ?? '',
+      userId,
       units: []
     }),
     cascadeConfig: skillCascadeConfig

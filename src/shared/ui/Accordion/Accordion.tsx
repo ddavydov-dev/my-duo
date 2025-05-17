@@ -2,7 +2,7 @@ import { FC, ReactNode } from 'react'
 import classNames from 'classnames'
 import { Icon } from '../Icon'
 import styles from './Accordion.module.scss'
-import { Options } from '@/widgets/Constructor/ui/Options'
+import { Options } from '@/pages/BuildPage/ui/Options'
 
 interface AccordionProps {
   isOpen: boolean
@@ -44,5 +44,6 @@ const Trigger = ({ isOpen, title, onToggle, isHovered = false }) => (
       <Icon name="arrow" />
     </div>
     <span className={styles.Title}>{title}</span>
+    {isOpen ? ' ' : null}
   </button>
 )
