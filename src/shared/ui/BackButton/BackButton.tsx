@@ -1,6 +1,6 @@
 import { useRouter } from '@tanstack/react-router'
 
-import { Icon } from '../Icon'
+import Icon from '../Icon'
 import styles from './BackButton.module.scss'
 import { FC } from 'react'
 

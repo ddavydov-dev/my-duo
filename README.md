@@ -21,12 +21,19 @@ Your first lesson you can add by going to Constructor page. Everything you need 
 3. supabase functions serve
 4. npm run dev
 
-### New features
+### New features (TODO)
 
 - Email with stats + Settings where you can change your data
 - Add i18n
 - On register page there can be AI helping to define first modules with lessons related to your project
   - There can also be templates of different topics
+- Lesson progress to be saved so you can quit in the middle of the lesson and continue any time later
+- Generate challenges to repeat
+- Generate "Exams"
+- Emojies for skills
+- Dark theme
+- Add "Share" page
+- Add error boundaries
 
 ### List of solutions I'd reconsider
 

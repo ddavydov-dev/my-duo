@@ -8,7 +8,7 @@ export const LearnPage = () => {
       <section className="w-full max-w-[1056px] p-6 flex gap-12 mx-auto">
         <LessonList />
 
-        <Sidebar />
+        <Sidebar /> {/* TODO: Sidebar should get children widgets */}
       </section>
     </Page>
   )

@@ -1,5 +1,5 @@
 import { FC, InputHTMLAttributes, ReactNode } from 'react'
-import classNames from 'classnames'
+import classNames from 'clsx'
 
 import styles from './FormField.module.scss'
 import { Text } from '../Text/Text'

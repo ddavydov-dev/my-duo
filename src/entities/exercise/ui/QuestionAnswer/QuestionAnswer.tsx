@@ -1,7 +1,7 @@
 import { useRive } from '@rive-app/react-canvas'
 import styles from './QuestionAnswer.module.scss'
 import { FC, useEffect } from 'react'
-import { Icon } from '@/shared/ui/Icon'
+import Icon from '@/shared/ui/Icon'
 import { SmartTextarea } from '@/shared/ui/SmartTextarea'
 import { CHARACTER_HEIGHT, CHARACTER_WIDTH } from '../../config/consts'
 

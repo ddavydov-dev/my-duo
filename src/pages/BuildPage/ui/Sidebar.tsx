@@ -1,24 +1,20 @@
-import { useSkills } from '@/entities/skill'
 import { Units } from './Units'
-import { useMemo } from 'react'
+import { useActiveSkill } from '../model/useActiveSkill'
 
 export const Sidebar = () => {
-  const { data: skills } = useSkills()
-  const activeSkill = useMemo(() => skills.find(s => s.isActive), [skills])
+  const { activeSkill } = useActiveSkill()
+  // const activeSkill = useMemo(() => skills.find(s => s.isActive), [skills])
+
+  if (!activeSkill) {
+    return <div>Add your first skill</div>
+  }
 
   return (
-    <div
-      style={{
-        minWidth: 225,
-        borderRight: '1px solid #E0E0E0',
-        height: '100vh',
-        padding: '32px 20px 32px 24px'
-      }}
-    >
-      <h1 style={{ marginBottom: 24 }}>{activeSkill?.title}</h1>
+    <aside className="min-w-56 h-screen border-r border-swan px-[20px] pr-[20px] pl-6 py-[32px]">
+      {/* TODO: Skills component */}
+      <h1 className="mb-6">{activeSkill.title}</h1>
 
-      {/* <h2>Units</h2> */}
-      <Units skillId={activeSkill?.id} />
-    </div>
+      <Units skillId={activeSkill.id} />
+    </aside>
   )
 }

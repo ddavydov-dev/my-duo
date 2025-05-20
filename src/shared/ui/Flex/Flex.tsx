@@ -1,4 +1,4 @@
-import classnames from 'classnames'
+import clsx from 'clsx'
 import { useMemo, type ElementType, type FC } from 'react'
 
 import { DEFAULT_TAG } from './Flex.consts'
@@ -38,7 +38,7 @@ export const Flex: FC<FlexPropsType> = ({
 
   return (
     <Element
-      className={classnames(
+      className={clsx(
         styles.Flex,
         getModifierClassName(styles, 'space', spaceAll),
         getModifierClassName(styles, 'spaceColumn', spaceColumn),

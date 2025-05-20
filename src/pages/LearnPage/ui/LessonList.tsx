@@ -1,30 +1,34 @@
-import styles from './LearnList.module.scss'
 import { UNIT_STYLE_COLORS } from '@/entities/unit/config/types'
 import { useSkillUnits } from '../model/useSkillUnits'
 import { useScrollLessons } from '../model/useScrollLessons'
 import { Unit } from './Unit'
+import { Button } from '@/shared/ui/Button'
 
 export const LessonList = () => {
-  const { units, activeUnit, setActiveUnitId } = useSkillUnits()
+  const { units, activeUnit, setActiveUnitId, isLoading } = useSkillUnits()
 
   const sectionRefs = useScrollLessons(units, setActiveUnitId, activeUnit)
 
+  if (isLoading) return null
   if (!activeUnit) return <div>No units for this skill. Please create your first unit</div>
 
   return (
-    <div className={styles.LearnList}>
-      <div className={styles.Sticky}>
-        <div className={styles.Space} />
+    <div className="flex flex-col flex-1 h-full bg-white">
+      <div className="sticky top-0 bg-white z-10">
+        <div className="h-0 md:h-6" />
         <div
-          className={styles.Content}
+          className="flex justify-between items-center h-[90px] text-white text-[22px] font-bold rounded-xl overflow-hidden px-4"
           style={{ backgroundColor: UNIT_STYLE_COLORS[activeUnit.style] }}
         >
-          {activeUnit.title}
-          <button className={styles.EditButton}>Edit</button>
+          <div>
+            <h2>Unit {1}</h2>
+            <h2>{activeUnit.title}</h2>
+          </div>
+          <Button icon="edit">Edit</Button>
         </div>
       </div>
 
-      <div className={styles.ScrollArea}>
+      <div className="flex-1 overflow-y-auto p-6">
         {units.map((unit, idx) => (
           <div
             key={unit.id}

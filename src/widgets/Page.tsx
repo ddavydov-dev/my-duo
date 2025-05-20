@@ -1,4 +1,3 @@
-import clsx from 'clsx'
 import { FC, ReactNode } from 'react'
 import Navigation from './Navigation'
 import { AuthProvider } from '@/entities/user'
@@ -9,11 +8,9 @@ interface PageProps {
 }
 
 export const Page: FC<PageProps> = ({ children, isNavClosed = false }) => {
-  const paddingLeft = `pl-[${isNavClosed ? 88 : 256}px]` // TODO: fix this
-
   return (
     <AuthProvider>
-      <div className={clsx('flex', paddingLeft)}>
+      <div className={'flex'}>
         <Navigation isNavClosed={isNavClosed} />
         {children}
       </div>

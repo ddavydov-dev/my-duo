@@ -18,7 +18,7 @@ const exercises = {
     description: 'Fill in the blanks with the correct words.',
     component: () => <div>Insert Words</div>
   }
-}
+} as const
 
 export const Exercise = () => {
   const [exerciseType, setExerciseType] = useState<string | null>()

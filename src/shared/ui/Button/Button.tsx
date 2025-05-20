@@ -1,11 +1,11 @@
 import { ComponentPropsWithoutRef, FC, ReactNode, useState } from 'react'
-import classNames from 'classnames'
+import clsx from 'clsx'
 
 import styles from './Button.module.scss'
 import { Loader } from '../Loader'
-import { Icon } from '../Icon'
+import Icon from '../Icon'
 import { Flex } from '../Flex'
-import { IconName } from '../Icon/Icon'
+import type { IconName } from '../Icon'
 
 // TODO: divide variant into variant and kind
 interface Props extends ComponentPropsWithoutRef<'button'> {
@@ -33,12 +33,18 @@ export const Button: FC<Props> = ({
 
   return (
     <button
+      {...props}
       type={type}
-      className={classNames(styles.Button, styleVariant, {
-        [styles.isLoading]: isLoading,
-        [styles.isFullWidth]: isFullWidth,
-        [styles.isDisabled]: disabled
-      })}
+      className={clsx(
+        styles.Button,
+        styleVariant,
+        {
+          [styles.isLoading]: isLoading,
+          [styles.isFullWidth]: isFullWidth,
+          [styles.isDisabled]: disabled
+        },
+        props.className
+      )}
       disabled={disabled || isLoading}
       onMouseOver={() => {
         if (postfix) setShowPostfix(true)
@@ -46,7 +52,6 @@ export const Button: FC<Props> = ({
       onMouseLeave={() => {
         if (postfix) setShowPostfix(false)
       }}
-      {...props}
     >
       <Flex space={3} alignItems="center">
         {icon ? <Icon name={icon} className={styles.Icon} /> : null}

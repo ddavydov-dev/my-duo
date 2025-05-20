@@ -1,12 +1,14 @@
 import { Exercise } from '@/entities/exercise/ui/Exercise'
 import { QuestionAnswer } from '@/entities/exercise/ui/QuestionAnswer'
-import { useCallback, useContext, useMemo, useState } from 'react'
-import { BuildPageContext } from './BuildPage'
+import { useCallback, useMemo, useState } from 'react'
 import { useExercises } from '@/entities/exercise'
 import { Button } from '@/shared/ui/Button'
+import { useAtom } from 'jotai'
+import { activeLessonIdAtom } from '../model/atoms'
 
 export const Editor = () => {
-  const { lessonId } = useContext(BuildPageContext)
+  const [lessonId] = useAtom(activeLessonIdAtom)
+
   const {
     data: exercises,
     create: createExercise,
@@ -114,7 +116,7 @@ export const Editor = () => {
 
       <div>
         <h2>Controls</h2>
-        <div style={{ display: 'flex' }}>
+        <div className="flex">
           <Button onClick={handleDelete}>Delete</Button>
         </div>
       </div>

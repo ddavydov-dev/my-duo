@@ -1,7 +1,7 @@
-import classnames from 'classnames'
+import clsx from 'clsx'
 import logo from '/icons/logo.svg'
 import logoFull from '/icons/logo-full.svg'
-import { Icon } from '@/shared/ui/Icon'
+import Icon from '@/shared/ui/Icon'
 import { Link, useLocation } from '@tanstack/react-router'
 import { useUser } from '@/entities/user'
 
@@ -22,34 +22,27 @@ function Navigation({ isNavClosed = false }: PropsType) {
 
   return (
     <div
-      className={classnames(
-        'fixed left-0 top-0 z-[210] h-screen overflow-y-auto select-none bg-snow text-hare border-r-2 border-swan font-medium text-[17px] leading-[25px] px-4',
+      className={clsx(
+        'sticky left-0 top-0 h-screen overflow-y-auto select-none text-hare border-r-2 border-swan font-medium text-[17px] leading-[25px] px-4',
         isNavClosed ? 'w-[88px]' : 'w-[88px] lg:w-[256px]'
       )}
     >
-      <div
-        className={classnames(
-          'box-content h-[39px] pl-2 pt-7 pb-6 lg:h-[30px] lg:pl-4 lg:pt-8 lg:pb-7'
-        )}
-      >
+      <div className={'box-content h-[39px] pl-2 pt-7 pb-6 lg:h-[30px] lg:pl-4 lg:pt-8 lg:pb-7'}>
         <Link to="/learn" aria-current="page" className="block h-full w-fit">
           <img
             src={logoFull}
             alt="Full logo"
-            className={classnames('hidden h-[30px] w-[128px] lg:block', isNavClosed && 'lg:hidden')}
+            className={clsx('hidden h-[30px] w-[128px] lg:block', isNavClosed && 'lg:hidden')}
           />
           <img
             src={logo}
             alt="Logo icon"
-            className={classnames('block h-10 w-10 lg:block', !isNavClosed && 'lg:hidden')}
+            className={clsx('block h-10 w-10 lg:block', !isNavClosed && 'lg:hidden')}
           />
         </Link>
       </div>
       <nav
-        className={classnames(
-          'flex flex-col gap-2 relative',
-          isNavClosed ? 'w-14' : 'w-14 lg:w-auto'
-        )}
+        className={clsx('flex flex-col gap-2 relative', isNavClosed ? 'w-14' : 'w-14 lg:w-auto')}
       >
         {links.map(({ title, icon, href }) => {
           const active = pathname === href
@@ -61,20 +54,18 @@ function Navigation({ isNavClosed = false }: PropsType) {
               key={title}
             >
               <span
-                className={classnames(
+                className={clsx(
                   'flex items-center justify-center lg:justify-start relative h-13 p-2 border-2 rounded-xl transition-colors',
                   !active && 'hover:bg-polar border-transparent',
                   active && 'bg-iguana border-blue-jay [&>span]:text-macaw',
                   isNavClosed && 'lg:justify-center'
                 )}
               >
-                <div
-                  className={classnames('flex relative', !isNavClosed && 'lg:mr-5', 'lg:ml-[6px]')}
-                >
+                <div className={clsx('flex relative', !isNavClosed && 'lg:mr-5', 'lg:ml-[6px]')}>
                   <Icon name={icon} />
                 </div>
                 <span
-                  className={classnames(
+                  className={clsx(
                     'hidden text-[15px] font-bold tracking-wider uppercase text-wolf select-none font-sans',
                     !isNavClosed && 'lg:inline'
                   )}

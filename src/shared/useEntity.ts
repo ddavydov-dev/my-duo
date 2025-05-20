@@ -27,7 +27,7 @@ export function useEntity<K extends ResourceKind>(kind: K, parentId?: string): U
   const parentKey = def.parentKey ? (def.parentKey as keyof EntityOf<K>) : undefined
 
   // build React-Query key + local filter
-  const keys = parentId != null ? [kind, parentId] : [kind]
+  const keys = parentId != undefined ? [kind, parentId] : [kind]
   const getFilterFn =
     parentKey && parentId ? (item: EntityOf<K>) => item[parentKey] === parentId : undefined
 
