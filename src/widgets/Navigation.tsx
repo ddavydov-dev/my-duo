@@ -1,6 +1,4 @@
 import clsx from 'clsx'
-import logo from '/icons/logo.svg'
-import logoFull from '/icons/logo-full.svg'
 import Icon from '@/shared/ui/Icon'
 import { Link, useLocation } from '@tanstack/react-router'
 import { useUser } from '@/entities/user'
@@ -16,20 +14,22 @@ interface PropsType {
   isNavClosed?: boolean
 }
 
-function Navigation({ isNavClosed = false }: PropsType) {
+export default function Navigation({ isNavClosed = false }: PropsType) {
   const { user } = useUser()
   const { pathname } = useLocation()
 
   return (
     <div
       className={clsx(
-        'sticky left-0 top-0 h-screen overflow-y-auto select-none text-hare border-r-2 border-swan font-medium text-[17px] leading-[25px] px-4',
-        isNavClosed ? 'w-[88px]' : 'w-[88px] lg:w-[256px]'
+        'sticky w-[88px] left-0 top-0 h-screen overflow-y-auto select-none text-hare border-r-2 border-swan font-medium text-[17px] leading-[25px] px-4',
+        !isNavClosed && 'lg:w-[256px]'
       )}
     >
-      <div className={'box-content h-[39px] pl-2 pt-7 pb-6 lg:h-[30px] lg:pl-4 lg:pt-8 lg:pb-7'}>
-        <Link to="/learn" aria-current="page" className="block h-full w-fit">
-          <img
+      <nav
+        className={clsx('flex flex-col gap-2 relative', isNavClosed ? 'w-14' : 'w-14 lg:w-auto')}
+      >
+        <Link to="/learn" aria-current="page" className="mt-8 mb-7 flex items-center">
+          {/* <img
             src={logoFull}
             alt="Full logo"
             className={clsx('hidden h-[30px] w-[128px] lg:block', isNavClosed && 'lg:hidden')}
@@ -38,12 +38,11 @@ function Navigation({ isNavClosed = false }: PropsType) {
             src={logo}
             alt="Logo icon"
             className={clsx('block h-10 w-10 lg:block', !isNavClosed && 'lg:hidden')}
-          />
+          /> */}
+
+          <span>Logo</span>
         </Link>
-      </div>
-      <nav
-        className={clsx('flex flex-col gap-2 relative', isNavClosed ? 'w-14' : 'w-14 lg:w-auto')}
-      >
+
         {links.map(({ title, icon, href }) => {
           const active = pathname === href
 
@@ -80,5 +79,3 @@ function Navigation({ isNavClosed = false }: PropsType) {
     </div>
   )
 }
-
-export default Navigation

@@ -34,6 +34,8 @@ Your first lesson you can add by going to Constructor page. Everything you need 
 - Dark theme
 - Add "Share" page
 - Add error boundaries
+- Add sorting for tailwind classes and imports
+- Add husky with tests before commit
 
 ### List of solutions I'd reconsider
 

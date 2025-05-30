@@ -18,7 +18,7 @@ export const ActionButton: FC<Action> = ({ icon, tooltip, onClick, menu }) => {
     <>
       <button
         onClick={handle}
-        className="relative grid place-content-center w-6 h-6 rounded hover:bg-gray-200 transition group"
+        className="relative grid place-content-center w-6 h-6 rounded hover:bg-gray-200 transition group cursor-pointer"
       >
         <Icon name={icon} />
         <span className="absolute left-full ml-2 top-1/2 whitespace-nowrap text-xs rounded px-2 py-1 bg-gray-700 text-white opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition pointer-events-none">

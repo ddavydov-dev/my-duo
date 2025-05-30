@@ -12,14 +12,14 @@ export interface Action {
 
 interface ActionGroupProps {
   actions: Action[]
-  isVisible?: boolean
+  isOpen?: boolean
 }
 
-export const ActionGroup: FC<ActionGroupProps> = ({ actions, isVisible = false }) => (
+export const ActionGroup: FC<ActionGroupProps> = ({ actions, isOpen = false }) => (
   <div
     className={clsx(
       'flex space-x-1 absolute right-2 top-1/2 -translate-y-1/2 z-10 group-hover/header:opacity-100 group-focus-within/header:opacity-100 transition',
-      isVisible ? 'opacity-100' : 'opacity-0'
+      isOpen ? 'opacity-100' : 'opacity-0'
     )}
   >
     {actions.map(a => (

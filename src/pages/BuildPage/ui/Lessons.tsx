@@ -1,6 +1,6 @@
 import { useLessons } from '@/entities/lesson'
 import { Button } from '@/shared/ui/Button'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 // import { BuildPageContext } from './BuildPage'
 import { activeLessonIdAtom, activeUnitIdAtom } from '../model/atoms'
 import { useAtom } from 'jotai'
@@ -10,6 +10,13 @@ import { ActionGroup } from './ActionGroup'
 export default function Lessons() {
   const [activeUnitId] = useAtom(activeUnitIdAtom)
   const { data: lessons, remove } = useLessons(activeUnitId!) // TODO: fix this
+  const [activeLessonId, setActiveLessonId] = useAtom(activeLessonIdAtom)
+
+  useEffect(() => {
+    if (lessons.length > 0 && !activeLessonId) {
+      setActiveLessonId(lessons[0].id)
+    }
+  }, [activeLessonId, setActiveLessonId, lessons])
 
   return (
     <div className="mb-3 flex flex-col gap-1 px-3">
@@ -20,76 +27,20 @@ export default function Lessons() {
   )
 }
 
-// const Lesson: FC<{
-//   id: string
-//   title: string
-//   onRemove: VoidFunction
-// }> = ({ id, title, onRemove }) => {
-//   const [activeLessonId, setActiveLessonId] = useAtom(activeLessonIdAtom)
-
-//   return (
-//     <>
-//       <Options
-//         menu={
-//           <Button variant="ghost" onClick={onRemove}>
-//             Delete
-//           </Button>
-//         }
-//         children={() => (
-//           <Button
-//             onClick={() => setActiveLessonId(id)}
-//             style={{
-//               height: 33,
-//               color: id === activeLessonId ? '#0097DC' : '#4B4B4B',
-//               backgroundColor: id === activeLessonId ? '#D9F4FF' : 'inherit',
-//               justifyContent: 'flex-start',
-//               textTransform: 'initial'
-//             }}
-//             isFullWidth
-//             variant="ghost"
-//           >
-//             {title}
-//           </Button>
-//         )}
-//       />
-//     </>
-//   )
-// }
-
-// const LessonItem: FC<{ id: string; title: string }> = ({ id, title }) => {
-//   const [activeId, setActive] = useAtom(activeLessonIdAtom)
-
-//   return (
-//     <Button
-//       variant="ghost"
-//       isFullWidth
-//       onClick={() => setActive(id)}
-//       className={clsx(
-//         'h-8 justify-start text-left',
-//         activeId === id
-//           ? 'bg-sky-100 text-sky-700 hover:bg-sky-100'
-//           : 'text-neutral-700 hover:bg-neutral-50'
-//       )}
-//     >
-//       {title}
-//     </Button>
-//   )
-// }
-
-interface Props {
+interface LessonProps {
   id: string
   title: string
   onRemove: VoidFunction
 }
 
-const LessonItem: FC<Props> = ({ id, title, onRemove }) => {
+const LessonItem: FC<LessonProps> = ({ id, title, onRemove }) => {
   const [activeId, setActive] = useAtom(activeLessonIdAtom)
   const isActive = id === activeId
 
   return (
-    <div
+    <button
       className={clsx(
-        'relative w-full rounded-lg transition-colors group/header',
+        'relative w-full rounded-lg transition-colors group/header cursor-pointer',
         isActive ? 'bg-iguana' : 'bg-white hover:bg-polar'
       )}
       onClick={() => setActive(id)}
@@ -120,6 +71,6 @@ const LessonItem: FC<Props> = ({ id, title, onRemove }) => {
           }
         ]}
       />
-    </div>
+    </button>
   )
 }

@@ -37,7 +37,91 @@ export const Editor = () => {
     }
   }, [activeExerciseId, removeExercise])
 
-  if (!lessonId) return <div>No lesson id</div>
+  if (!activeExercise)
+    return (
+      <div className="flex justify-center items-center flex-col h-full w-full pt-20">
+        <h2 className="mb-12">Choose your exercise type</h2>
+
+        <div className="flex flex-wrap mx-auto">
+          <button
+            style={{
+              borderRadius: '16px',
+              borderStyle: 'solid',
+              borderWidth: '2px 2px 4px',
+              cursor: 'pointer',
+              display: 'inline-block',
+              flex: '1 1 auto',
+              margin: '12px',
+              maxWidth: '240px',
+              minHeight: '217px',
+              minWidth: '200px',
+              padding: '12px 12px 24px',
+              textAlign: 'center'
+            }}
+          >
+            <div className="h-20 mt-8"></div>
+            <h2 className="mt-6">Question&Answer</h2>
+          </button>
+          <button
+            style={{
+              borderRadius: '16px',
+              borderStyle: 'solid',
+              borderWidth: '2px 2px 4px',
+              cursor: 'pointer',
+              display: 'inline-block',
+              flex: '1 1 auto',
+              margin: '12px',
+              maxWidth: '240px',
+              minHeight: '217px',
+              minWidth: '200px',
+              padding: '12px 12px 24px',
+              textAlign: 'center'
+            }}
+          >
+            <div className="h-20 mt-8"></div>
+            <h2 className="mt-6">Insert words</h2>
+          </button>
+          <button
+            style={{
+              borderRadius: '16px',
+              borderStyle: 'solid',
+              borderWidth: '2px 2px 4px',
+              cursor: 'pointer',
+              display: 'inline-block',
+              flex: '1 1 auto',
+              margin: '12px',
+              maxWidth: '240px',
+              minHeight: '217px',
+              minWidth: '200px',
+              padding: '12px 12px 24px',
+              textAlign: 'center'
+            }}
+          >
+            <div className="h-20 mt-8"></div>
+            <h2 className="mt-6">Variants</h2>
+          </button>
+          <button
+            style={{
+              borderRadius: '16px',
+              borderStyle: 'solid',
+              borderWidth: '2px 2px 4px',
+              cursor: 'pointer',
+              display: 'inline-block',
+              flex: '1 1 auto',
+              margin: '12px',
+              maxWidth: '240px',
+              minHeight: '217px',
+              minWidth: '200px',
+              padding: '12px 12px 24px',
+              textAlign: 'center'
+            }}
+          >
+            <div className="h-20 mt-8"></div>
+            <h2 className="mt-6">Connections</h2>
+          </button>
+        </div>
+      </div>
+    )
 
   return (
     <div
@@ -84,41 +168,38 @@ export const Editor = () => {
             {index + 1}
           </Button>
         ))}
-        <Button
+        {/* <Button
           onClick={addExercise}
           variant="ghost"
           style={{ border: '2px solid #58CC02', height: 40, width: 49, color: '#58CC02' }}
         >
           +
-        </Button>
+        </Button> */}
       </div>
 
-      {activeExercise ? (
-        <Exercise title="Answer the question">
-          <QuestionAnswer
-            key={activeExercise.id}
-            question={activeExercise.prompt}
-            onQuestionChange={(newPrompt: string) => {
-              const newExercise = { ...activeExercise, prompt: newPrompt }
-              updateExercise({ ...newExercise })
-            }}
-            answer={activeExercise.answer}
-            onAnswerChange={(newAnswer: string) => {
-              const newExercise = { ...activeExercise, answer: newAnswer }
-              updateExercise({ ...newExercise })
-            }}
-            isEditing
-          />
-        </Exercise>
-      ) : (
-        'Choose exercise type'
-      )}
+      <Exercise title="Answer the question">
+        <QuestionAnswer
+          key={activeExercise.id}
+          question={activeExercise.prompt}
+          onQuestionChange={(newPrompt: string) => {
+            const newExercise = { ...activeExercise, prompt: newPrompt }
+            updateExercise({ ...newExercise })
+          }}
+          answer={activeExercise.answer}
+          onAnswerChange={(newAnswer: string) => {
+            const newExercise = { ...activeExercise, answer: newAnswer }
+            updateExercise({ ...newExercise })
+          }}
+          isEditing
+        />
+      </Exercise>
 
-      <div>
-        <h2>Controls</h2>
-        <div className="flex">
-          <Button onClick={handleDelete}>Delete</Button>
-        </div>
+      <div className="flex h-16 gap-3">
+        {/* <Button onClick={}>Change type</Button>
+        <Button onClick={}>Clear</Button> */}
+        <Button onClick={handleDelete}>Delete</Button>
+        <Button onClick={addExercise}>Add</Button>
+        {/* <Button onClick={}>AI</Button> */}
       </div>
     </div>
   )
